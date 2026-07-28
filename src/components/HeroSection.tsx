@@ -25,19 +25,63 @@ export default function HeroSection() {
         <ModernNavbar />
 
         <main className="flex flex-1 flex-col items-center justify-center px-4 text-center">
+          {/* ── 3D Floating Logo ── */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, scale: 0.85, y: 30, rotateX: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="perspective-[1200px] mb-6 sm:mb-8"
           >
-            <Image
-              src="/logo-full.png"
-              alt="Whizzly Lab"
-              width={520}
-              height={180}
-              className="mb-6 h-20 max-w-[min(100%,280px)] w-auto object-contain drop-shadow-[0_0_48px_rgba(0,240,255,0.55)] sm:mb-8 sm:h-36 sm:max-w-none md:h-44 lg:h-52"
-              priority
-            />
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                duration: 4,
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatType: "loop",
+              }}
+              className="relative"
+            >
+              {/* Outer ambient glow */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -m-8 rounded-full opacity-50 blur-[64px]"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, rgba(168,85,247,0.45) 0%, rgba(99,102,241,0.3) 40%, transparent 70%)",
+                }}
+              />
+              {/* Inner focused glow */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -m-3 rounded-full opacity-60 blur-[32px]"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, rgba(0,240,255,0.35) 0%, rgba(168,85,247,0.2) 50%, transparent 75%)",
+                }}
+              />
+              {/* Bottom reflection / ground glow */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -bottom-6 left-1/2 h-8 w-3/4 -translate-x-1/2 rounded-full opacity-40 blur-[28px]"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(99,102,241,0.5), rgba(168,85,247,0.5), rgba(0,240,255,0.4))",
+                }}
+              />
+              <Image
+                src="/logo-full.png"
+                alt="Whizzly Lab"
+                width={520}
+                height={180}
+                className="relative z-10 h-20 max-w-[min(100%,280px)] w-auto object-contain sm:h-36 sm:max-w-none md:h-44 lg:h-52"
+                style={{
+                  filter:
+                    "drop-shadow(0 0 24px rgba(0,240,255,0.5)) drop-shadow(0 0 60px rgba(168,85,247,0.35)) drop-shadow(0 8px 20px rgba(0,0,0,0.6))",
+                }}
+                priority
+              />
+            </motion.div>
           </motion.div>
 
           <motion.h1

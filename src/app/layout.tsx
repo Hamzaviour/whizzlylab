@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description:
       "AI, ML & full-stack engineering — intelligent systems that ship.",
     siteName: "Whizzly Lab",
-    images: [{ url: "/logo-og.jpg" }],
+    images: [{ url: "/logo-og.png" }],
   },
 };
 
