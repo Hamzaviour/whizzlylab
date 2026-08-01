@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
 import FeatureCardsSection from "@/components/FeatureCardsSection";
 import ServiceCarousel3D from "@/components/ServiceCarousel3D";
@@ -8,6 +9,27 @@ import ThreeNeuralField from "@/components/ThreeNeuralField";
 import HomePricing from "@/components/HomePricing";
 import CursorParticles from "@/components/CursorParticles";
 import { TextRevealWords } from "@/components/TextRevealOnScroll";
+
+export const metadata: Metadata = {
+  title: "Whizzly Lab — AI, ML & Full-Stack Engineering Studio",
+  description:
+    "Whizzly Lab builds intelligent AI systems, real-time Kafka data pipelines, RAG agents, and production-grade full-stack products. Founded by AI engineer Hamza Younas in Lahore — shipping globally.",
+  alternates: {
+    canonical: "https://whizzlylab.com",
+  },
+  openGraph: {
+    title: "Whizzly Lab — AI, ML & Full-Stack Engineering",
+    description:
+      "AI, ML & full-stack engineering — intelligent systems that ship. Founded by Hamza Younas in Lahore.",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
+  twitter: {
+    title: "Whizzly Lab — AI, ML & Full-Stack Engineering",
+    description:
+      "AI, ML & full-stack engineering — intelligent systems that ship.",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
+};
 
 export default function Home() {
   return (

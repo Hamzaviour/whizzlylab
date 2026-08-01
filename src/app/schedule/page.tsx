@@ -24,6 +24,29 @@ const serviceOptions = [
   "Other",
 ];
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Schedule a Consult — Whizzly Lab | AI Strategy Call",
+  description:
+    "Book a 20–30 minute discovery call with Whizzly Lab. Discuss your AI, ML, or full-stack project and get scope + budget clarity. From Lahore, shipping globally.",
+  alternates: {
+    canonical: "https://whizzlylab.com/schedule",
+  },
+  robots: "noindex, follow",
+  openGraph: {
+    title: "Schedule a Consult — Whizzly Lab",
+    description: "Book a strategy call for your AI or full-stack project.",
+    url: "https://whizzlylab.com/schedule",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
+  twitter: {
+    title: "Schedule a Consult — Whizzly Lab",
+    description: "Book a discovery call with Whizzly Lab.",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
+};
+
 export default function SchedulePage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",

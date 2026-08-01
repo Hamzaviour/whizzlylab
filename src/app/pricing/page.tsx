@@ -4,9 +4,23 @@ import CtaFooter from "@/components/CtaFooter";
 import PricingContent from "@/components/PricingContent";
 
 export const metadata: Metadata = {
-  title: "Pricing — Whizzly Lab",
+  title: "Pricing — Whizzly Lab | AI & Full-Stack Development Costs (PKR / USD)",
   description:
-    "Whizzly Lab Pakistan-market pricing for websites, AI & ML, automation, mobile apps, analytics, computer vision, data pipelines and business solutions — in PKR and USD.",
+    "Transparent pricing for AI systems, machine learning, data pipelines, web development, automation, and full-stack products. Prices in PKR and USD. Founded by Hamza Younas in Lahore.",
+  alternates: {
+    canonical: "https://whizzlylab.com/pricing",
+  },
+  openGraph: {
+    title: "Pricing — Whizzly Lab",
+    description: "Transparent pricing for AI, ML & full-stack engineering.",
+    url: "https://whizzlylab.com/pricing",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
+  twitter: {
+    title: "Pricing — Whizzly Lab",
+    description: "Transparent AI & full-stack pricing in PKR and USD.",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
 };
 
 export default function PricingPage() {

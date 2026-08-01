@@ -5,9 +5,24 @@ import PageNavbar from "@/components/PageNavbar";
 import CtaFooter from "@/components/CtaFooter";
 
 export const metadata: Metadata = {
-  title: "About — Whizzly Lab",
+  title: "About — Whizzly Lab | AI Engineering Studio Lahore",
   description:
-    "Whizzly Lab is an AI and full-stack studio led by Hamza Younas — shipping intelligent systems from Lahore to the world.",
+    "Whizzly Lab is an AI and full-stack engineering studio founded by Hamza Younas, with a team of developers and engineers shipping intelligent systems from Lahore to the world. Portfolio includes EchoSense, CureCMS, COMPLYSECOPS.",
+  alternates: {
+    canonical: "https://whizzlylab.com/about",
+  },
+  openGraph: {
+    title: "About — Whizzly Lab",
+    description:
+      "Founded by AI engineer Hamza Younas — a team of full-stack developers, ML engineers, and systems architects.",
+    url: "https://whizzlylab.com/about",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
+  twitter: {
+    title: "About — Whizzly Lab",
+    description: "AI engineering studio founded by Hamza Younas in Lahore.",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
 };
 
 export default function AboutPage() {
@@ -46,7 +61,7 @@ export default function AboutPage() {
             </div>
             <div className="space-y-5 text-base leading-relaxed text-hero-sub/80">
               <p>
-                Led by AI engineer{" "}
+                Founded by AI engineer{" "}
                 <a
                   href="https://hamzayounas.netlify.app/"
                   target="_blank"
@@ -55,8 +70,9 @@ export default function AboutPage() {
                 >
                   Hamza Younas
                 </a>{" "}
-                (Lahore · shipping globally), Whizzly Lab sits at the
-                intersection of research-minded AI and product-ready delivery.
+                (Lahore · shipping globally), Whizzly Lab is a growing team of
+                full-stack developers, ML engineers, and systems architects
+                united by one principle — ship systems people rely on.
               </p>
               <p>
                 Portfolio highlights include EchoSense (crisis NLP pipelines),

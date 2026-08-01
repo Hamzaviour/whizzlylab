@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "background-removal": {
+      "source": "inferen-sh/skills",
+      "sourceType": "github",
+      "skillPath": "tools/image/background-removal/SKILL.md",
+      "computedHash": "34959bfa7af41b17214fc8ef349af075460fef64181c059728587f727aba8b3a"
+    }
+  }
+}

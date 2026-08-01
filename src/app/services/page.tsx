@@ -6,9 +6,23 @@ import PageNavbar from "@/components/PageNavbar";
 import CtaFooter from "@/components/CtaFooter";
 
 export const metadata: Metadata = {
-  title: "Services — Whizzly Lab",
+  title: "Services — Whizzly Lab | AI, ML & Full-Stack Development",
   description:
-    "AI, ML, data pipelines, web development, automation, analytics, vision, and business solutions from Whizzly Lab.",
+    "Whizzly Lab offers AI engineering, machine learning, RAG pipelines, web development, automation, data analytics, computer vision, and business solutions — end-to-end from Lahore to the world.",
+  alternates: {
+    canonical: "https://whizzlylab.com/services",
+  },
+  openGraph: {
+    title: "Services — Whizzly Lab",
+    description: "AI, ML, data pipelines & full-stack engineering services.",
+    url: "https://whizzlylab.com/services",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
+  twitter: {
+    title: "Services — Whizzly Lab",
+    description: "AI, ML & full-stack engineering services.",
+    images: ["https://whizzlylab.com/logo-og.jpg"],
+  },
 };
 
 export default function ServicesIndexPage() {
