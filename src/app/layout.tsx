@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import InteractiveShell from "@/components/InteractiveShell";
+import { CurrencyProvider } from "@/lib/currency";
 
 export const metadata: Metadata = {
   title: {
@@ -51,7 +52,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon" />
       </head>
       <body className="min-h-full antialiased">
-        <InteractiveShell>{children}</InteractiveShell>
+        <CurrencyProvider>
+          <InteractiveShell>{children}</InteractiveShell>
+        </CurrencyProvider>
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import PAGE_NAV from "@/lib/nav";
 import { WHATSAPP_URL } from "@/lib/contact";
+import { CurrencyToggle } from "@/lib/currency";
 
 export default function PageNavbar() {
   const [open, setOpen] = useState(false);
@@ -72,6 +73,7 @@ export default function PageNavbar() {
         >
           WhatsApp
         </a>
+        <CurrencyToggle className="hidden lg:inline-flex" />
       </div>
 
       <AnimatePresence>
@@ -108,6 +110,9 @@ export default function PageNavbar() {
             >
               WhatsApp
             </a>
+            <div className="mt-2 flex justify-center">
+              <CurrencyToggle />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

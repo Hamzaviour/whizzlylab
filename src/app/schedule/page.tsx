@@ -4,6 +4,8 @@ import { FormEvent, useState } from "react";
 import Link from "next/link";
 import PageNavbar from "@/components/PageNavbar";
 import CtaFooter from "@/components/CtaFooter";
+import BudgetSelect from "@/components/BudgetSelect";
+import { useCurrency } from "@/lib/currency";
 import {
   COMPANY_EMAIL,
   WHATSAPP_URL,
@@ -26,6 +28,7 @@ export default function SchedulePage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
   );
+  const { format, currency } = useCurrency();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -69,11 +72,12 @@ export default function SchedulePage() {
             <p className="mt-4 text-base leading-relaxed text-hero-sub/80">
               Tell us what you need — website, AI system, or automation. We
               reply with availability and a clear next step. Portfolio sites
-              from <strong className="text-foreground">PKR 15,000</strong>.
+              from{" "}
+              <strong className="text-foreground">{format(15000)}</strong>.
             </p>
             <ul className="mt-8 space-y-3 text-sm text-hero-sub/75">
               <li>▸ 20–30 minute discovery call</li>
-              <li>▸ Scope + budget clarity in PKR</li>
+              <li>▸ Scope + budget clarity in {currency}</li>
               <li>▸ No pressure — just possibilities</li>
             </ul>
             <p className="mt-8 text-sm text-foreground/50">
@@ -138,20 +142,7 @@ export default function SchedulePage() {
                 </option>
               ))}
             </select>
-            <select
-              name="budget"
-              defaultValue=""
-              className="w-full rounded-2xl border border-white/10 bg-[#0c0c10] px-4 py-3.5 outline-none focus:border-white/25"
-            >
-              <option value="" disabled>
-                Approximate budget (PKR)
-              </option>
-              <option value="15k-60k">PKR 15,000 – 60,000</option>
-              <option value="40k-150k">PKR 40,000 – 150,000</option>
-              <option value="80k-350k">PKR 80,000 – 350,000</option>
-              <option value="400k-1500k">PKR 400,000 – 1,500,000+</option>
-              <option value="unsure">Not sure yet</option>
-            </select>
+            <BudgetSelect />
             <input
               name="when"
               placeholder="Preferred day / time (optional)"

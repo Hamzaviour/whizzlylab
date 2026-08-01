@@ -7,6 +7,7 @@ import { animate } from "animejs";
 import Link from "next/link";
 import PAGE_NAV from "@/lib/nav";
 import { WHATSAPP_URL } from "@/lib/contact";
+import { CurrencyToggle } from "@/lib/currency";
 
 /**
  * Compact black nav hug links (Home → Contact) + separate CTA cards
@@ -90,6 +91,7 @@ export default function ModernNavbar() {
         >
           WhatsApp
         </a>
+        <CurrencyToggle className="hidden lg:inline-flex" />
       </div>
 
       <AnimatePresence>
@@ -127,6 +129,9 @@ export default function ModernNavbar() {
               >
                 WhatsApp
               </a>
+              <div className="mt-2 flex justify-center">
+                <CurrencyToggle />
+              </div>
             </div>
           </motion.div>
         )}
