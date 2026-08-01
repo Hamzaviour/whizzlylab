@@ -3,25 +3,26 @@ import Link from "next/link";
 import Image from "next/image";
 import PageNavbar from "@/components/PageNavbar";
 import CtaFooter from "@/components/CtaFooter";
+import { BASE_URL, ogImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "About — Whizzly Lab | AI Engineering Studio Lahore",
   description:
     "Whizzly Lab is an AI and full-stack engineering studio founded by Hamza Younas, with a team of developers and engineers shipping intelligent systems from Lahore to the world. Portfolio includes EchoSense, CureCMS, COMPLYSECOPS.",
   alternates: {
-    canonical: "https://whizzlylab.com/about",
+    canonical: `${BASE_URL}/about`,
   },
   openGraph: {
     title: "About — Whizzly Lab",
     description:
       "Founded by AI engineer Hamza Younas — a team of full-stack developers, ML engineers, and systems architects.",
-    url: "https://whizzlylab.com/about",
-    images: ["https://whizzlylab.com/logo-og.jpg"],
+    url: `${BASE_URL}/about`,
+    images: [ogImage()],
   },
   twitter: {
     title: "About — Whizzly Lab",
     description: "AI engineering studio founded by Hamza Younas in Lahore.",
-    images: ["https://whizzlylab.com/logo-og.jpg"],
+    images: [ogImage()],
   },
 };
 

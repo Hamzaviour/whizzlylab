@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://whizzlylab.com";
+const BASE =
+  process.env.NEXT_PUBLIC_APP_URL ||
+  process.env.URL ||
+  "https://whizzlylab.netlify.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

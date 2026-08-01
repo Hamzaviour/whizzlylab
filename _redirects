@@ -1,0 +1,8 @@
+# ─────────────────────────────────────────────
+# Next.js App Router handles all routing natively.
+# These redirects are only for legacy/legacy paths.
+# ─────────────────────────────────────────────
+
+# No legacy redirects needed — all routes are App Router.
+# If you ever add legacy pages, add them below:
+# /old-page  /new-page 301

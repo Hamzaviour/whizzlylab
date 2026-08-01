@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
+import { BASE_URL, ogImage } from "@/lib/seo";
 import FeatureCardsSection from "@/components/FeatureCardsSection";
 import ServiceCarousel3D from "@/components/ServiceCarousel3D";
 import CaseStudies from "@/components/CaseStudies";
@@ -15,19 +16,19 @@ export const metadata: Metadata = {
   description:
     "Whizzly Lab builds intelligent AI systems, real-time Kafka data pipelines, RAG agents, and production-grade full-stack products. Founded by AI engineer Hamza Younas in Lahore — shipping globally.",
   alternates: {
-    canonical: "https://whizzlylab.com",
+    canonical: BASE_URL,
   },
   openGraph: {
     title: "Whizzly Lab — AI, ML & Full-Stack Engineering",
     description:
       "AI, ML & full-stack engineering — intelligent systems that ship. Founded by Hamza Younas in Lahore.",
-    images: ["https://whizzlylab.com/logo-og.jpg"],
+    images: [ogImage()],
   },
   twitter: {
     title: "Whizzly Lab — AI, ML & Full-Stack Engineering",
     description:
       "AI, ML & full-stack engineering — intelligent systems that ship.",
-    images: ["https://whizzlylab.com/logo-og.jpg"],
+    images: [ogImage()],
   },
 };
 

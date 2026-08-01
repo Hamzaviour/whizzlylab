@@ -3,8 +3,13 @@ import "./globals.css";
 import InteractiveShell from "@/components/InteractiveShell";
 import { CurrencyProvider } from "@/lib/currency";
 
+const BASE_URL =
+  process.env.NEXT_PUBLIC_APP_URL ||
+  process.env.URL ||
+  "https://whizzlylab.netlify.app";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://whizzlylab.com"),
+  metadataBase: new URL(BASE_URL),
   title: {
     default: "Whizzly Lab — AI, ML & Full-Stack Engineering Studio",
     template: "%s | Whizzly Lab",
@@ -43,14 +48,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://whizzlylab.com",
+    url: BASE_URL,
     title: "Whizzly Lab — AI, ML & Full-Stack Engineering Studio",
     description:
       "AI, ML & full-stack engineering — intelligent systems that ship. Founded by Hamza Younas in Lahore.",
     siteName: "Whizzly Lab",
     images: [
       {
-        url: "https://whizzlylab.com/logo-og.jpg",
+        url: `${BASE_URL}/logo-og.jpg`,
         width: 652,
         height: 521,
         alt: "Whizzly Lab",
@@ -62,11 +67,11 @@ export const metadata: Metadata = {
     title: "Whizzly Lab — AI, ML & Full-Stack Engineering",
     description:
       "AI, ML & full-stack engineering — intelligent systems that ship. Founded by Hamza Younas in Lahore.",
-    images: ["https://whizzlylab.com/logo-og.jpg"],
+    images: [`${BASE_URL}/logo-og.jpg`],
     creator: "@whizzlylab",
   },
   alternates: {
-    canonical: "https://whizzlylab.com",
+    canonical: BASE_URL,
   },
   icons: {
     icon: [
@@ -77,7 +82,7 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   verification: {
-    google: "your-google-site-verification-code",
+    google: process.env.GOOGLE_SITE_VERIFICATION || "your-google-site-verification-code",
   },
 };
 
@@ -102,8 +107,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Whizzly Lab",
-              url: "https://whizzlylab.com",
-              logo: "https://whizzlylab.com/logo-full.png",
+              url: BASE_URL,
+              logo: `${BASE_URL}/logo-full.png`,
               description:
                 "AI and full-stack engineering studio building intelligent systems that ship.",
               founder: {
@@ -121,7 +126,7 @@ export default function RootLayout({
               contactPoint: {
                 "@type": "ContactPoint",
                 contactType: "customer service",
-                email: "hello@whizzlylab.com",
+                email: "whizzlylab@gmail.com",
               },
             }),
           }}

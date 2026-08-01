@@ -4,24 +4,25 @@ import type { Metadata } from "next";
 import { SERVICES } from "@/lib/services";
 import PageNavbar from "@/components/PageNavbar";
 import CtaFooter from "@/components/CtaFooter";
+import { BASE_URL, ogImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Services — Whizzly Lab | AI, ML & Full-Stack Development",
   description:
     "Whizzly Lab offers AI engineering, machine learning, RAG pipelines, web development, automation, data analytics, computer vision, and business solutions — end-to-end from Lahore to the world.",
   alternates: {
-    canonical: "https://whizzlylab.com/services",
+    canonical: `${BASE_URL}/services`,
   },
   openGraph: {
     title: "Services — Whizzly Lab",
     description: "AI, ML, data pipelines & full-stack engineering services.",
-    url: "https://whizzlylab.com/services",
-    images: ["https://whizzlylab.com/logo-og.jpg"],
+    url: `${BASE_URL}/services`,
+    images: [ogImage()],
   },
   twitter: {
     title: "Services — Whizzly Lab",
     description: "AI, ML & full-stack engineering services.",
-    images: ["https://whizzlylab.com/logo-og.jpg"],
+    images: [ogImage()],
   },
 };
 

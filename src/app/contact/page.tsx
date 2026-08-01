@@ -11,28 +11,6 @@ import {
   submitWeb3Form,
 } from "@/lib/contact";
 
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Contact — Whizzly Lab | Get in Touch",
-  description:
-    "Reach Whizzly Lab for AI, ML, and full-stack engineering projects. Email or WhatsApp — we reply fast from Lahore, shipping globally.",
-  alternates: {
-    canonical: "https://whizzlylab.com/contact",
-  },
-  openGraph: {
-    title: "Contact — Whizzly Lab",
-    description: "Get in touch with Whizzly Lab — AI engineering studio.",
-    url: "https://whizzlylab.com/contact",
-    images: ["https://whizzlylab.com/logo-og.jpg"],
-  },
-  twitter: {
-    title: "Contact — Whizzly Lab",
-    description: "Reach Whizzly Lab for AI & full-stack projects.",
-    images: ["https://whizzlylab.com/logo-og.jpg"],
-  },
-};
-
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
