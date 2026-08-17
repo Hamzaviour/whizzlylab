@@ -86,7 +86,7 @@ export default function CaseStudies() {
                 <div className="relative h-48 overflow-hidden sm:h-56">
                   <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={`${item.title} — ${item.tag.replace(' · ', ' case study: ')}`}
                     fill
                     className="object-cover transition duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, 50vw"

@@ -4,6 +4,7 @@ import type { ServicePage } from "@/lib/services";
 import { SERVICES } from "@/lib/services";
 import PageNavbar from "./PageNavbar";
 import CtaFooter from "./CtaFooter";
+import Breadcrumbs from "./Breadcrumbs";
 
 export default function ServiceDetail({ service }: { service: ServicePage }) {
   const others = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 3);
@@ -19,12 +20,13 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
         />
 
         <div className="relative z-10 mx-auto max-w-6xl">
-          <Link
-            href="/services"
-            className="text-sm text-foreground/45 transition hover:text-foreground"
-          >
-            ← All services
-          </Link>
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Services", href: "/services" },
+              { label: service.title },
+            ]}
+          />
 
           {service.tag ? (
             <span

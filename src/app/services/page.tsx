@@ -58,7 +58,7 @@ export default function ServicesIndexPage() {
                 <div className="relative h-40 overflow-hidden">
                   <Image
                     src={s.image}
-                    alt={s.title}
+                    alt={`${s.title} — Whizzly Lab service`}
                     fill
                     className="object-cover transition duration-500 group-hover:scale-105"
                     sizes="(max-width:768px) 100vw, 33vw"

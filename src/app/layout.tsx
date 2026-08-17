@@ -75,8 +75,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", type: "image/x-icon" },
-      { url: "/icon", sizes: "512x512", type: "image/png" },
+      { url: "/icon.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon.png", sizes: "96x96", type: "image/png" },
+      { url: "/icon.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [{ url: "/apple-icon", type: "image/png" }],
   },
@@ -119,10 +123,26 @@ export default function RootLayout({
               },
               address: {
                 "@type": "PostalAddress",
+                streetAddress: "Plot 377, Shahbaz Block Mustafa Town",
                 addressLocality: "Lahore",
+                addressRegion: "Punjab",
                 addressCountry: "PK",
               },
-              sameAs: [],
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: "31.4704",
+                longitude: "74.3587",
+              },
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                opens: "09:00",
+                closes: "18:00",
+              },
+              sameAs: [
+                "https://linkedin.com/company/whizzly-lab",
+                "https://twitter.com/whizzlylab",
+              ],
               contactPoint: {
                 "@type": "ContactPoint",
                 contactType: "customer service",
@@ -147,8 +167,11 @@ export default function RootLayout({
           href="https://db.onlinewebfonts.com/c/e55e9079ee863276569c8a68d776ef04?family=Futura+Md+BT+Medium"
           rel="stylesheet"
         />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon" type="image/png" sizes="512x512" />
+        <link rel="icon" href="/icon.png" sizes="32x32" type="image/png" />
+        <link rel="icon" href="/icon.png" sizes="48x48" type="image/png" />
+        <link rel="icon" href="/icon.png" sizes="96x96" type="image/png" />
+        <link rel="icon" href="/icon.png" sizes="192x192" type="image/png" />
+        <link rel="icon" href="/icon.png" sizes="512x512" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-icon" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#05010f" />

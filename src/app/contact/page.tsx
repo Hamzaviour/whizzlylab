@@ -5,6 +5,8 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import PageNavbar from "@/components/PageNavbar";
 import CtaFooter from "@/components/CtaFooter";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import ResponseTimePromise from "@/components/ResponseTimePromise";
 import {
   COMPANY_EMAIL,
   WHATSAPP_URL,
@@ -30,6 +32,7 @@ export default function ContactPage() {
       });
       setStatus("sent");
       form.reset();
+      window.location.href = "/thank-you";
     } catch {
       setStatus("error");
     }
@@ -44,6 +47,12 @@ export default function ContactPage() {
           <p className="text-xs tracking-[0.2em] text-foreground/40 uppercase">
             Contact
           </p>
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Contact" },
+            ]}
+          />
           <h1
             className="mx-auto mt-3 max-w-3xl text-3xl font-bold tracking-tight italic sm:text-5xl md:text-6xl"
             style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
@@ -59,6 +68,9 @@ export default function ContactPage() {
               {COMPANY_EMAIL}
             </a>
             .
+          </p>
+          <p className="mx-auto mt-2 max-w-xl text-sm text-foreground/40">
+            Plot 377, Shahbaz Block Mustafa Town, Lahore, Pakistan
           </p>
 
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
@@ -88,10 +100,15 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <form
-          onSubmit={onSubmit}
-          className="liquid-glass mx-auto mt-12 max-w-xl space-y-4 rounded-3xl p-5 sm:mt-16 sm:p-8"
-        >
+        <div className="mx-auto mt-12 max-w-4xl">
+          <ResponseTimePromise />
+        </div>
+
+        <div className="mt-12 grid gap-10 lg:grid-cols-2">
+          <form
+            onSubmit={onSubmit}
+            className="liquid-glass mx-auto max-w-xl space-y-4 rounded-3xl p-5 sm:p-8"
+          >
           <input
             name="name"
             required
@@ -129,7 +146,52 @@ export default function ContactPage() {
               Couldn&apos;t send. Try {COMPANY_EMAIL} or WhatsApp.
             </p>
           )}
-        </form>
+          </form>
+
+          {/* Map */}
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold text-white">Find us</h2>
+            <div className="aspect-[4/3] overflow-hidden rounded-3xl border border-white/10">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.5!2d74.3!3d31.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3918ff7b6f5c1b6d%3A0x0!2sMustafa+Town%2C+Lahore!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Whizzly Lab location map"
+                className="grayscale hover:grayscale-0 transition-all duration-500"
+              />
+            </div>
+            <div className="space-y-2 text-sm text-hero-sub/70">
+              <p>
+                <strong className="text-white">Address:</strong> Plot 377,
+                Shahbaz Block Mustafa Town, Lahore, Pakistan
+              </p>
+              <p>
+                <strong className="text-white">Email:</strong>{" "}
+                <a
+                  href={`mailto:${COMPANY_EMAIL}`}
+                  className="text-foreground underline underline-offset-4 hover:text-white"
+                >
+                  {COMPANY_EMAIL}
+                </a>
+              </p>
+              <p>
+                <strong className="text-white">WhatsApp:</strong>{" "}
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-emerald-400 underline underline-offset-4 hover:text-emerald-300"
+                >
+                  +92 303 9969903
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <CtaFooter />

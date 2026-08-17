@@ -10,6 +10,7 @@ import ThreeNeuralField from "@/components/ThreeNeuralField";
 import HomePricing from "@/components/HomePricing";
 import CursorParticles from "@/components/CursorParticles";
 import { TextRevealWords } from "@/components/TextRevealOnScroll";
+import ReviewsSection from "@/components/ReviewsSection";
 
 export const metadata: Metadata = {
   title: "Whizzly Lab — AI, ML & Full-Stack Engineering Studio",
@@ -56,6 +57,8 @@ export default function Home() {
           <BenefitsSection />
 
           <HomePricing />
+
+          <ReviewsSection />
 
           <section id="learning" className="relative px-4 py-20 sm:px-8">
             <div className="liquid-glass relative mx-auto max-w-6xl overflow-hidden rounded-2xl p-8 sm:p-12">

@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import PageNavbar from "@/components/PageNavbar";
 import CtaFooter from "@/components/CtaFooter";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import FAQSection from "@/components/FAQSection";
 import { BASE_URL, ogImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -34,9 +36,12 @@ export default function AboutPage() {
       <section className="relative overflow-hidden px-4 py-12 sm:px-8 sm:py-24">
         <div className="pointer-events-none absolute top-20 right-0 h-80 w-80 rounded-full bg-[#00F0FF]/20 blur-3xl" />
         <div className="relative z-10 mx-auto max-w-6xl">
-          <p className="text-xs tracking-[0.2em] text-foreground/40 uppercase">
-            About
-          </p>
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "About" },
+            ]}
+          />
           <h1
             className="mt-3 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl"
             style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
@@ -52,10 +57,10 @@ export default function AboutPage() {
           <div className="mt-14 grid items-center gap-10 lg:grid-cols-2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10">
               <Image
-                src="/logo-full.png"
+                src="/transparent-logo.png"
                 alt="Whizzly Lab"
                 fill
-                className="object-contain bg-black p-16"
+                className="object-contain p-8 scale-110"
                 sizes="(max-width:1024px) 100vw, 50vw"
                 priority
               />
@@ -112,6 +117,52 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+
+          <div className="mt-24 grid items-center gap-12 lg:grid-cols-2">
+            <div className="space-y-5 text-base leading-relaxed text-hero-sub/80 order-2 lg:order-1">
+              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl" style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}>
+                The Team Behind the Build
+              </h2>
+              <p>
+                Whizzly Lab is powered by a focused team of engineers who treat
+                every project like a product — not a task list. From data
+                pipelines to deployed ML models, each member brings deep
+                specialization and a bias for shipping systems that scale.
+              </p>
+              <p>
+                Based in Lahore, working across time zones. We partner with
+                startups, product teams, and enterprise engineering orgs —
+                bringing clarity to complex problems and velocity to ambitious
+                timelines.
+              </p>
+              <div className="pt-2 flex flex-wrap gap-3">
+                <Link
+                  href="/services"
+                  className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium transition hover:bg-white/10"
+                >
+                  Our services
+                </Link>
+                <Link
+                  href="/schedule"
+                  className="rounded-full bg-gradient-to-r from-[#6366f1] to-[#00f0ff] px-5 py-2.5 text-sm font-semibold text-black"
+                >
+                  Meet the team
+                </Link>
+              </div>
+            </div>
+            <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-white/10 order-1 lg:order-2">
+              <Image
+                src="/team-photo.png"
+                alt="Whizzly Lab team photo — engineers at work"
+                fill
+                className="object-cover"
+                sizes="(max-width:1024px) 100vw, 50vw"
+                priority
+              />
+            </div>
+          </div>
+
+          <FAQSection />
         </div>
       </section>
 

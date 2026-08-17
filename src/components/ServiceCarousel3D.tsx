@@ -72,7 +72,7 @@ function ServiceCard({ card }: { card: Card }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={card.image}
-            alt={card.title}
+            alt={`${card.title} — Whizzly Lab`}
             className="block h-full w-full object-cover"
             style={{
               transform: hovered ? "scale(1.08)" : "scale(1)",
@@ -171,7 +171,7 @@ function MobileCard({ card }: { card: Card }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={card.image}
-            alt={card.title}
+            alt={`${card.title} — Whizzly Lab`}
             className="block h-full w-full object-cover"
           />
         ) : (
