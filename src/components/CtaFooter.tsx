@@ -157,11 +157,13 @@ export default function CtaFooter() {
               </ul>
             </div>
 
-            {/* Ecosystem & Legal */}
+            {/* Ecosystem & Socials */}
             <div>
               <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Ecosystem</h4>
               <ul className="mt-4 space-y-2 text-sm text-hero-sub/70">
-                <li><a href="https://hamzayounas.netlify.app/" target="_blank" rel="noreferrer" className="hover:text-white transition">Founder Portfolio</a></li>
+                <li><a href="https://www.linkedin.com/company/whizzly-lab" target="_blank" rel="noreferrer" className="hover:text-white transition">LinkedIn</a></li>
+                <li><a href="https://www.instagram.com/whizzlylab" target="_blank" rel="noreferrer" className="hover:text-white transition">Instagram</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61592686831558" target="_blank" rel="noreferrer" className="hover:text-white transition">Facebook</a></li>
                 <li><a href="https://github.com/Hamzaviour" target="_blank" rel="noreferrer" className="hover:text-white transition">GitHub</a></li>
                 <li><a href="https://hamzavelous-echosense-ai.hf.space/login" target="_blank" rel="noreferrer" className="hover:text-white transition">Hugging Face</a></li>
                 <li><Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
