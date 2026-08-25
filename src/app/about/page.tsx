@@ -1,6 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  Sparkles,
+  ShieldCheck,
+  Zap,
+  Layers,
+  ArrowUpRight,
+  CheckCircle2,
+  Cpu,
+  Globe2,
+  Clock,
+  ExternalLink,
+} from "lucide-react";
 import PageNavbar from "@/components/PageNavbar";
 import CtaFooter from "@/components/CtaFooter";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -8,33 +20,110 @@ import FAQSection from "@/components/FAQSection";
 import { BASE_URL, ogImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About — Whizzly Lab | AI Engineering Studio Lahore",
+  title: "About — Whizzly Lab | AI Engineering Studio",
   description:
-    "Whizzly Lab is an AI and full-stack engineering studio founded by Hamza Younas, with a team of developers and engineers shipping intelligent systems from Lahore to the world. Portfolio includes EchoSense, CureCMS, COMPLYSECOPS.",
+    "Whizzly Lab is an AI and full-stack engineering studio founded by Hamza Younas, with a team of developers and engineers shipping intelligent systems worldwide. Portfolio includes EchoSense, CureCMS, COMPLYSECOPS.",
   alternates: {
     canonical: `${BASE_URL}/about`,
   },
   openGraph: {
     title: "About — Whizzly Lab",
     description:
-      "Founded by AI engineer Hamza Younas — a team of full-stack developers, ML engineers, and systems architects.",
+      "Founded by AI engineer Hamza Younas — a team of full-stack developers, ML engineers, and systems architects shipping globally.",
     url: `${BASE_URL}/about`,
     images: [ogImage()],
   },
   twitter: {
     title: "About — Whizzly Lab",
-    description: "AI engineering studio founded by Hamza Younas in Lahore.",
+    description: "AI engineering studio founded by Hamza Younas.",
     images: [ogImage()],
   },
 };
+
+const STATS = [
+  {
+    icon: Cpu,
+    stat: "100%",
+    label: "Production-Grade",
+    desc: "Zero prototype vaporware — real systems with high throughput and telemetry.",
+  },
+  {
+    icon: Globe2,
+    stat: "4+",
+    label: "Continents Served",
+    desc: "Active client systems across North America, Europe, the Middle East, and Asia.",
+  },
+  {
+    icon: Clock,
+    stat: "<24h",
+    label: "Response SLA",
+    desc: "Direct communication with engineering leads across all active time zones.",
+  },
+  {
+    icon: Layers,
+    stat: "End-to-End",
+    label: "Stack Delivery",
+    desc: "From algorithmic RAG & Kafka pipelines to sleek React/Next.js interfaces.",
+  },
+];
+
+const PRINCIPLES = [
+  {
+    icon: Zap,
+    title: "Production-First Architecture",
+    description:
+      "We design every system from the start to handle production traffic, concurrency spikes, data drift, and stringent security constraints.",
+    tag: "High Velocity",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Observability & Anomaly Guard",
+    description:
+      "Telemetry, alerting, and drift detection are built directly into our AI pipelines — ensuring zero silent failures before end-users notice.",
+    tag: "Resilient",
+  },
+  {
+    icon: Sparkles,
+    title: "Transparent, Agile Delivery",
+    description:
+      "Weekly deployed demo builds, transparent GitHub/Slack integration, and crisp milestone deliverables with no ambiguity.",
+    tag: "Full Visibility",
+  },
+];
+
+const PROCESS_STEPS = [
+  {
+    number: "01",
+    title: "Feasibility & Architecture Audit",
+    desc: "We analyze your problem, data requirements, and latency targets to formulate an actionable architectural blueprint.",
+  },
+  {
+    number: "02",
+    title: "Algorithmic & Model Engineering",
+    desc: "Custom RAG vectors, fine-tuned neural models, and real-time Kafka/Spark streaming pipelines built to spec.",
+  },
+  {
+    number: "03",
+    title: "Full-Stack Integration & Demos",
+    desc: "Interactive dashboards, clean Next.js interfaces, secure APIs, and weekly live demo environments.",
+  },
+  {
+    number: "04",
+    title: "Production Hardening & SLA",
+    desc: "Automated CI/CD pipelines, containerized deployments, cloud infra setup, and complete documentation handover.",
+  },
+];
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-[hsl(260_87%_3%)] text-foreground">
       <PageNavbar />
 
-      <section className="relative overflow-hidden px-4 py-12 sm:px-8 sm:py-24">
-        <div className="pointer-events-none absolute top-20 right-0 h-80 w-80 rounded-full bg-[#00F0FF]/20 blur-3xl" />
+      {/* Hero Header Section */}
+      <section className="relative overflow-hidden px-4 pt-12 pb-20 sm:px-8 sm:pt-20 sm:pb-28">
+        <div className="pointer-events-none absolute top-20 right-0 h-[500px] w-[500px] rounded-full bg-[#00F0FF]/15 blur-3xl" />
+        <div className="pointer-events-none absolute top-80 -left-40 h-[500px] w-[500px] rounded-full bg-[#6366f1]/15 blur-3xl" />
+
         <div className="relative z-10 mx-auto max-w-6xl">
           <Breadcrumbs
             items={[
@@ -42,126 +131,287 @@ export default function AboutPage() {
               { label: "About" },
             ]}
           />
-          <h1
-            className="mt-3 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl"
-            style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
-          >
-            Whizzly Lab builds intelligent products that ship.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-hero-sub/85">
-            We are an AI, ML, and full-stack engineering studio. From real-time
-            Kafka pipelines to RAG agents and production web apps — we turn
-            ambitious briefs into systems companies rely on.
-          </p>
 
-          <div className="mt-14 grid items-center gap-10 lg:grid-cols-2">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10">
-              <Image
-                src="/transparent-logo.png"
-                alt="Whizzly Lab"
-                fill
-                className="object-contain p-8 scale-110"
-                sizes="(max-width:1024px) 100vw, 50vw"
-                priority
-              />
+          <div className="mt-6 max-w-4xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold text-cyan-300 backdrop-blur-md">
+              <Sparkles className="h-3.5 w-3.5" />
+              About Whizzly Lab · Engineering Studio
             </div>
-            <div className="space-y-5 text-base leading-relaxed text-hero-sub/80">
-              <p>
-                Founded by AI engineer{" "}
-                <a
-                  href="https://hamzayounas.netlify.app/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-foreground underline-offset-4 hover:underline"
-                >
-                  Hamza Younas
-                </a>{" "}
-                (Lahore · shipping globally), Whizzly Lab is a growing team of
-                full-stack developers, ML engineers, and systems architects
-                united by one principle — ship systems people rely on.
-              </p>
-              <p>
-                Portfolio highlights include EchoSense (crisis NLP pipelines),
-                CureCMS (healthcare RCM), COMPLYSECOPS (compliance), and OXO
-                Packaging (e-commerce) — end-to-end builds with measurable
-                outcomes.
-              </p>
-              <div className="flex flex-wrap gap-3 pt-2">
-                <Link
-                  href="/services"
-                  className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium transition hover:bg-white/10"
-                >
-                  Explore services
-                </Link>
-                <Link
-                  href="/schedule"
-                  className="rounded-full bg-gradient-to-r from-[#6366f1] to-[#00f0ff] px-5 py-2.5 text-sm font-semibold text-black"
-                >
-                  Schedule a consult
-                </Link>
-              </div>
+            
+            <h1
+              className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl leading-[1.05]"
+              style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
+            >
+              We engineer intelligent software systems that{" "}
+              <span className="bg-gradient-to-r from-[#00F0FF] via-[#6366f1] to-[#a855f7] bg-clip-text text-transparent">
+                ship and scale
+              </span>
+              .
+            </h1>
+
+            <p className="mt-6 max-w-3xl text-lg sm:text-xl leading-relaxed text-hero-sub/85">
+              Whizzly Lab is an AI, machine learning, and full-stack engineering studio. We bridge the gap between complex research-grade models and robust, production-grade applications that organizations rely on every single day.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link
+                href="/schedule"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#6366f1] via-[#a855f7] to-[#00f0ff] px-8 py-3.5 text-sm font-semibold text-black shadow-[0_0_25px_rgba(0,240,255,0.35)] transition-all hover:opacity-95"
+              >
+                Schedule Strategy Consult
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/#work"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-medium text-white transition hover:border-white/40 hover:bg-white/10"
+              >
+                Explore Shipped Work
+              </Link>
             </div>
           </div>
 
-          <div className="mt-20 grid gap-4 sm:grid-cols-3">
-            {[
-              { k: "Focus", v: "AI · ML · Full-stack" },
-              { k: "Base", v: "Lahore, Pakistan" },
-              { k: "Reach", v: "Global clients & remotes" },
-            ].map((item) => (
-              <div key={item.k} className="liquid-glass rounded-2xl p-6">
-                <p className="text-xs tracking-widest text-foreground/40 uppercase">
-                  {item.k}
+          {/* Stats & Capability Highlights */}
+          <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {STATS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.label}
+                  className="liquid-glass relative flex flex-col justify-between rounded-3xl border border-white/10 p-7 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)]"
+                >
+                  <div>
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-400">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <p className="mt-6 text-3xl font-bold tracking-tight text-white" style={{ fontFamily: "'Syne', sans-serif" }}>
+                      {item.stat}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-cyan-300">
+                      {item.label}
+                    </p>
+                  </div>
+                  <p className="mt-3 text-xs leading-relaxed text-hero-sub/70 border-t border-white/10 pt-3">
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Founder Spotlight & Studio Mission */}
+          <div className="mt-28 liquid-glass rounded-3xl border border-white/10 p-8 sm:p-12 lg:p-16">
+            <div className="grid items-center gap-12 lg:grid-cols-12">
+              <div className="relative aspect-square overflow-hidden rounded-3xl border border-white/15 bg-black/40 lg:col-span-5 flex items-center justify-center p-8">
+                <Image
+                  src="/transparent-logo.png"
+                  alt="Whizzly Lab Logo"
+                  width={360}
+                  height={360}
+                  className="object-contain drop-shadow-[0_0_35px_rgba(0,240,255,0.3)]"
+                  priority
+                />
+              </div>
+
+              <div className="space-y-6 lg:col-span-7">
+                <span className="text-xs font-semibold tracking-[0.2em] text-cyan-400 uppercase">
+                  Leadership &amp; Origins
+                </span>
+                <h2
+                  className="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+                  style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
+                >
+                  Built by engineers with a bias for shipping
+                </h2>
+                <p className="text-base leading-relaxed text-hero-sub/85">
+                  Founded by AI engineer{" "}
+                  <a
+                    href="https://hamzayounas.netlify.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-semibold text-white underline underline-offset-4 hover:text-cyan-300"
+                  >
+                    Hamza Younas
+                  </a>
+                  , Whizzly Lab brings together specialized full-stack developers, ML engineers, and systems architects who treat every project like a scalable product.
                 </p>
-                <p className="mt-2 text-xl font-medium">{item.v}</p>
+                <p className="text-base leading-relaxed text-hero-sub/80">
+                  Our portfolio includes mission-critical architectures such as{" "}
+                  <strong className="text-white">EchoSense</strong> (real-time crisis NLP streaming on Kafka &amp; Spark),{" "}
+                  <strong className="text-white">CureCMS</strong> (HIPAA-conscious healthcare revenue cycle automation),{" "}
+                  <strong className="text-white">COMPLYSECOPS</strong> (AI compliance &amp; cybersecurity), and{" "}
+                  <strong className="text-white">OXO Packaging</strong> (high-volume e-commerce).
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <a
+                    href="https://hamzayounas.netlify.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold text-white transition hover:bg-white/10 hover:border-white/40"
+                  >
+                    Founder Portfolio <ExternalLink className="h-3.5 w-3.5 text-cyan-400" />
+                  </a>
+                  <a
+                    href="https://github.com/Hamzaviour"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold text-white transition hover:bg-white/10 hover:border-white/40"
+                  >
+                    GitHub <ExternalLink className="h-3.5 w-3.5 text-cyan-400" />
+                  </a>
+                  <a
+                    href="https://hamzavelous-echosense-ai.hf.space/login"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold text-white transition hover:bg-white/10 hover:border-white/40"
+                  >
+                    Hugging Face Space <ExternalLink className="h-3.5 w-3.5 text-cyan-400" />
+                  </a>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
 
-          <div className="mt-24 grid items-center gap-12 lg:grid-cols-2">
-            <div className="space-y-5 text-base leading-relaxed text-hero-sub/80 order-2 lg:order-1">
-              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl" style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}>
-                The Team Behind the Build
+          {/* Core Engineering Principles */}
+          <div className="mt-28">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <span className="text-xs font-semibold tracking-[0.2em] text-cyan-400/80 uppercase">
+                Our Engineering Philosophy
+              </span>
+              <h2
+                className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
+                style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
+              >
+                Principles that guide every deployment
               </h2>
-              <p>
-                Whizzly Lab is powered by a focused team of engineers who treat
-                every project like a product — not a task list. From data
-                pipelines to deployed ML models, each member brings deep
-                specialization and a bias for shipping systems that scale.
+              <p className="mt-4 text-base text-hero-sub/75">
+                We believe exceptional software is defined by stability under pressure, clear architecture, and measurable business ROI.
               </p>
-              <p>
-                Based in Lahore, working across time zones. We partner with
-                startups, product teams, and enterprise engineering orgs —
-                bringing clarity to complex problems and velocity to ambitious
-                timelines.
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-3">
+              {PRINCIPLES.map((p) => {
+                const Icon = p.icon;
+                return (
+                  <div
+                    key={p.title}
+                    className="liquid-glass relative flex flex-col justify-between rounded-3xl border border-white/10 p-8 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)]"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-indigo-500/30 bg-indigo-500/10 text-indigo-400">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold text-hero-sub/70">
+                          {p.tag}
+                        </span>
+                      </div>
+                      <h3 className="mt-6 text-xl font-bold text-white" style={{ fontFamily: "'Syne', sans-serif" }}>
+                        {p.title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-relaxed text-hero-sub/80">
+                        {p.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 4-Step Engineering Lifecycle */}
+          <div className="mt-28">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <span className="text-xs font-semibold tracking-[0.2em] text-cyan-400/80 uppercase">
+                Structured Execution
+              </span>
+              <h2
+                className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
+                style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
+              >
+                How we take systems from idea to production
+              </h2>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {PROCESS_STEPS.map((step) => (
+                <div
+                  key={step.number}
+                  className="liquid-glass relative flex flex-col justify-between rounded-3xl border border-white/10 p-7"
+                >
+                  <div>
+                    <span className="font-mono text-3xl font-bold text-cyan-400/40">
+                      {step.number}
+                    </span>
+                    <h3 className="mt-4 text-lg font-bold text-white" style={{ fontFamily: "'Syne', sans-serif" }}>
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-hero-sub/75">
+                      {step.desc}
+                    </p>
+                  </div>
+                  <div className="mt-6 flex items-center gap-1.5 text-xs text-cyan-300 font-medium">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Verified Output
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Team Photo & Culture Section */}
+          <div className="mt-28 grid items-center gap-12 lg:grid-cols-2">
+            <div className="space-y-6 order-2 lg:order-1">
+              <span className="text-xs font-semibold tracking-[0.2em] text-cyan-400 uppercase">
+                The Collective
+              </span>
+              <h2
+                className="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+                style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
+              >
+                The Team Behind The Build
+              </h2>
+              <p className="text-base leading-relaxed text-hero-sub/80">
+                Whizzly Lab operates as a high-density team of engineers. We don&apos;t pass you off to account managers — you collaborate directly with the software architects and ML practitioners writing your code.
               </p>
-              <div className="pt-2 flex flex-wrap gap-3">
+              <p className="text-base leading-relaxed text-hero-sub/80">
+                Working smoothly across US, European, and Asian time zones, we bring certainty to complex algorithmic problems and speed to ambitious delivery roadmaps.
+              </p>
+
+              <div className="flex flex-wrap gap-4 pt-2">
                 <Link
                   href="/services"
-                  className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium transition hover:bg-white/10"
+                  className="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10"
                 >
-                  Our services
+                  View All Services
                 </Link>
                 <Link
                   href="/schedule"
-                  className="rounded-full bg-gradient-to-r from-[#6366f1] to-[#00f0ff] px-5 py-2.5 text-sm font-semibold text-black"
+                  className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
                 >
-                  Meet the team
+                  Schedule an Intro Call
                 </Link>
               </div>
             </div>
-            <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-white/10 order-1 lg:order-2">
+
+            <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.6)] order-1 lg:order-2">
               <Image
                 src="/team-photo.png"
-                alt="Whizzly Lab team photo — engineers at work"
+                alt="Whizzly Lab engineering team collaborating"
                 fill
                 className="object-cover"
                 sizes="(max-width:1024px) 100vw, 50vw"
                 priority
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-[hsl(260_87%_3%)]/80 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-[#05010f]/80 p-3 backdrop-blur-md text-xs text-hero-sub/80 flex items-center justify-between">
+                <span>✦ Dedicated remote engineering teams</span>
+                <span className="text-cyan-300">Global Delivery</span>
+              </div>
             </div>
           </div>
 
+          {/* Interactive FAQ Section */}
           <FAQSection />
         </div>
       </section>

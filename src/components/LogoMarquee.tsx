@@ -26,21 +26,19 @@ function BrandChip({ name }: { name: string }) {
 
 export default function LogoMarquee() {
   return (
-    <footer className="mx-auto flex w-full max-w-5xl flex-col items-start justify-between gap-8 px-6 pb-10 md:flex-row md:items-center md:gap-12">
-      <div className="max-w-[200px] shrink-0 text-sm leading-tight text-foreground/50">
-        Trusted across AI builds
-        <br />
-        and production platforms
+    <footer className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-6 px-4 pb-8 text-center sm:px-6 md:flex-row md:items-center md:gap-12 md:text-left">
+      <div className="shrink-0 text-xs sm:text-sm font-medium tracking-wide text-foreground/50">
+        Trusted across AI builds &amp; production platforms
       </div>
 
-      <div className="relative min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
-        <div className="animate-marquee flex w-max gap-16 hover:[animation-play-state:paused]">
-          <div className="flex shrink-0 gap-16">
+      <div className="relative w-full min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_15%,white_85%,transparent)]">
+        <div className="animate-marquee flex w-max gap-12 sm:gap-16 hover:[animation-play-state:paused]">
+          <div className="flex shrink-0 gap-12 sm:gap-16">
             {brands.map((logo, idx) => (
               <BrandChip key={`logo-1-${idx}`} name={logo} />
             ))}
           </div>
-          <div className="flex shrink-0 gap-16" aria-hidden>
+          <div className="flex shrink-0 gap-12 sm:gap-16" aria-hidden>
             {brands.map((logo, idx) => (
               <BrandChip key={`logo-2-${idx}`} name={logo} />
             ))}

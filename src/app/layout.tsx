@@ -5,8 +5,9 @@ import { CurrencyProvider } from "@/lib/currency";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_APP_URL ||
-  process.env.URL ||
-  "https://whizzlylab.netlify.app";
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "") ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "") ||
+  "https://whizzlylab.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Whizzly Lab",
   },
   description:
-    "Whizzly Lab is an AI and full-stack engineering studio founded by Hamza Younas. We build intelligent AI systems, real-time data pipelines, and production-grade web products from Lahore to the world.",
+    "Whizzly Lab is an AI and full-stack engineering studio founded by Hamza Younas. We build intelligent AI systems, real-time data pipelines, and production-grade web products for clients worldwide.",
   keywords: [
     "AI engineering",
     "machine learning",
@@ -24,10 +25,10 @@ export const metadata: Metadata = {
     "RAG agents",
     "Kafka",
     "Next.js",
-    "AI development Pakistan",
+    "AI development",
     "Hamza Younas",
     "Whizzly Lab",
-    "web development Lahore",
+    "web development",
     "AI consultancy",
     "software development",
   ],
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
     url: BASE_URL,
     title: "Whizzly Lab — AI, ML & Full-Stack Engineering Studio",
     description:
-      "AI, ML & full-stack engineering — intelligent systems that ship. Founded by Hamza Younas in Lahore.",
+      "AI, ML & full-stack engineering — intelligent systems that ship. Founded by Hamza Younas.",
     siteName: "Whizzly Lab",
     images: [
       {
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Whizzly Lab — AI, ML & Full-Stack Engineering",
     description:
-      "AI, ML & full-stack engineering — intelligent systems that ship. Founded by Hamza Younas in Lahore.",
+      "AI, ML & full-stack engineering — intelligent systems that ship. Founded by Hamza Younas.",
     images: [`${BASE_URL}/logo-og.jpg`],
     creator: "@whizzlylab",
   },
@@ -93,6 +94,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
   themeColor: "#05010f",
 };
 
@@ -120,18 +123,6 @@ export default function RootLayout({
                 name: "Hamza Younas",
                 url: "https://hamzayounas.netlify.app/",
                 jobTitle: "AI Engineer & Founder",
-              },
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Plot 377, Shahbaz Block Mustafa Town",
-                addressLocality: "Lahore",
-                addressRegion: "Punjab",
-                addressCountry: "PK",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: "31.4704",
-                longitude: "74.3587",
               },
               openingHoursSpecification: {
                 "@type": "OpeningHoursSpecification",

@@ -1,3 +1,5 @@
+import { WHATSAPP_URL } from "@/lib/contact";
+
 export default function ResponseTimePromise() {
   return (
     <div className="mx-auto max-w-4xl">
@@ -18,7 +20,7 @@ export default function ResponseTimePromise() {
             </div>
           </div>
           <a
-            href="https://wa.me/923039969903"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noreferrer"
             className="shrink-0 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-5 py-2.5 text-sm font-medium text-emerald-300 transition hover:bg-emerald-500/25"

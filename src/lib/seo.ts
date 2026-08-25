@@ -5,8 +5,9 @@
 
 export const BASE_URL =
   process.env.NEXT_PUBLIC_APP_URL ||
-  process.env.URL ||
-  "https://whizzlylab.netlify.app";
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "") ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "") ||
+  "https://whizzlylab.com";
 
 export function ogImage(path = "/logo-og.jpg") {
   return `${BASE_URL}${path}`;

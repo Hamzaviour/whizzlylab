@@ -69,9 +69,6 @@ export default function ContactPage() {
             </a>
             .
           </p>
-          <p className="mx-auto mt-2 max-w-xl text-sm text-foreground/40">
-            Plot 377, Shahbaz Block Mustafa Town, Lahore, Pakistan
-          </p>
 
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <Link
@@ -107,7 +104,7 @@ export default function ContactPage() {
         <div className="mt-12 grid gap-10 lg:grid-cols-2">
           <form
             onSubmit={onSubmit}
-            className="liquid-glass mx-auto max-w-xl space-y-4 rounded-3xl p-5 sm:p-8"
+            className="liquid-glass mx-auto w-full max-w-xl space-y-4 rounded-3xl p-5 sm:p-8"
           >
           <input
             name="name"
@@ -148,47 +145,61 @@ export default function ContactPage() {
           )}
           </form>
 
-          {/* Map */}
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold text-white">Find us</h2>
-            <div className="aspect-[4/3] overflow-hidden rounded-3xl border border-white/10">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.5!2d74.3!3d31.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3918ff7b6f5c1b6d%3A0x0!2sMustafa+Town%2C+Lahore!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Whizzly Lab location map"
-                className="grayscale hover:grayscale-0 transition-all duration-500"
-              />
+          {/* Direct channels card */}
+          <div className="liquid-glass mx-auto flex w-full max-w-xl flex-col justify-between rounded-3xl p-6 sm:p-8">
+            <div className="space-y-6">
+              <div>
+                <p className="text-xs tracking-widest text-foreground/40 uppercase">Direct Channels</p>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight text-white" style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}>
+                  Fastest ways to connect
+                </h2>
+                <p className="mt-2 text-sm text-hero-sub/75">
+                  Have an urgent requirement or prefer a direct conversation? Choose your preferred channel below.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:bg-white/[0.06]">
+                  <p className="text-xs font-semibold text-foreground/40 uppercase tracking-wider">Email</p>
+                  <a
+                    href={`mailto:${COMPANY_EMAIL}`}
+                    className="mt-1 block text-base font-medium text-white underline underline-offset-4 hover:text-[#00F0FF]"
+                  >
+                    {COMPANY_EMAIL}
+                  </a>
+                  <p className="mt-1 text-xs text-hero-sub/60">For RFPs, detailed briefs & NDAs</p>
+                </div>
+
+                <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4 transition hover:bg-emerald-500/10">
+                  <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">WhatsApp Direct</p>
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-2 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-4 py-2 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-500/25"
+                  >
+                    Chat on WhatsApp
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                  <p className="mt-2 text-xs text-hero-sub/60">Instant messaging for quick questions & scoping</p>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:bg-white/[0.06]">
+                  <p className="text-xs font-semibold text-foreground/40 uppercase tracking-wider">Discovery Call</p>
+                  <Link
+                    href="/schedule"
+                    className="mt-2 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/20"
+                  >
+                    Book a 20–30 min consultation
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                  <p className="mt-2 text-xs text-hero-sub/60">Technical architecture and budget clarity</p>
+                </div>
+              </div>
             </div>
-            <div className="space-y-2 text-sm text-hero-sub/70">
-              <p>
-                <strong className="text-white">Address:</strong> Plot 377,
-                Shahbaz Block Mustafa Town, Lahore, Pakistan
-              </p>
-              <p>
-                <strong className="text-white">Email:</strong>{" "}
-                <a
-                  href={`mailto:${COMPANY_EMAIL}`}
-                  className="text-foreground underline underline-offset-4 hover:text-white"
-                >
-                  {COMPANY_EMAIL}
-                </a>
-              </p>
-              <p>
-                <strong className="text-white">WhatsApp:</strong>{" "}
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-emerald-400 underline underline-offset-4 hover:text-emerald-300"
-                >
-                  +92 303 9969903
-                </a>
-              </p>
+
+            <div className="mt-6 border-t border-white/10 pt-4 text-xs text-hero-sub/60">
+              <p>Operating across global time zones · NDA signed prior to discussion upon request</p>
             </div>
           </div>
         </div>

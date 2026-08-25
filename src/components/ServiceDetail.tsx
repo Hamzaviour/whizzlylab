@@ -67,7 +67,7 @@ export default function ServiceDetail({ service }: { service: ServicePage }) {
                 </p>
               ))}
               <Link
-                href="/#contact"
+                href="/schedule"
                 className="mt-4 inline-flex rounded-full px-6 py-3 text-sm font-medium text-black transition hover:opacity-90"
                 style={{ background: service.accentColor }}
               >

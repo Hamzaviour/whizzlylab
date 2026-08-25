@@ -25,7 +25,21 @@ export default function HeroSection() {
       <div className="relative z-10 flex w-full flex-1 flex-col justify-between">
         <ModernNavbar />
 
-        <main className="flex flex-1 flex-col items-center justify-center px-4 text-center">
+        <main className="flex flex-1 flex-col items-center justify-center px-4 py-8 text-center sm:py-12">
+          {/* Availability Status Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-medium text-cyan-300 backdrop-blur-md shadow-[0_0_15px_rgba(0,240,255,0.15)]"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500" />
+            </span>
+            Available for new AI & full-stack projects
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, scale: 0.85, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -43,33 +57,33 @@ export default function HeroSection() {
             {/* Logo */}
             <Image
               src="/transparent-icon.png"
-              alt="Whizzly Lab"
-              width={400}
-              height={400}
-              className="relative z-10 mb-6 mt-8 h-48 w-auto max-w-[min(100%,280px)] object-contain sm:mt-10 sm:mb-8 sm:h-56 sm:max-w-none md:h-64 lg:h-72"
+              alt="Whizzly Lab — AI Systems, Real-Time Data Pipelines & Full-Stack Products"
+              width={360}
+              height={360}
+              className="relative z-10 my-2 h-36 w-auto object-contain sm:h-44 md:h-52 lg:h-60"
               priority
             />
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-[-20px] font-general text-[clamp(2.4rem,12vw,140px)] leading-[1.05] font-normal tracking-[-0.024em] sm:mt-[-24px]"
+            className="font-general text-[clamp(2.4rem,9vw,96px)] leading-[1.05] font-semibold tracking-[-0.03em]"
           >
             <span className="text-white">Whizzly</span>{" "}
             <span
-              className="bg-gradient-to-br from-[#fcd34d] via-[#1268E8] to-[#a855f7] bg-clip-text text-transparent"
-              style={{ filter: "drop-shadow(0 0 40px rgba(18,104,232,0.5))" }}
+              className="bg-gradient-to-br from-[#00F0FF] via-[#6366f1] to-[#a855f7] bg-clip-text text-transparent"
+              style={{ filter: "drop-shadow(0 0 35px rgba(0,240,255,0.45))" }}
             >
               Lab
             </span>
           </motion.h1>
 
-          <div className="mt-[9px] max-w-md">
+          <div className="mt-4 max-w-xl">
             <ProTextType
               as="p"
-              className="text-[hsl(var(--hero-sub))] text-base leading-7 opacity-80 whitespace-pre-line sm:text-xl sm:leading-8"
+              className="text-hero-sub text-base leading-relaxed sm:text-lg sm:leading-8 font-normal"
               text="Intelligent AI systems. Real-time data pipelines. Production-grade full-stack products."
               speed={18}
               delay={350}
@@ -80,18 +94,31 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.45 }}
-            className="mt-[25px] flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center"
+            className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center"
           >
             <MagneticButton href="/schedule">
-              <span className="inline-flex w-full items-center justify-center rounded-full border border-foreground/20 bg-foreground/10 px-6 py-4 text-base font-semibold transition-all hover:bg-foreground/20 sm:w-auto sm:px-[29px] sm:py-[24px]">
+              <span className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#6366f1] via-[#a855f7] to-[#00f0ff] px-7 py-3.5 text-sm font-semibold text-black shadow-[0_0_25px_rgba(0,240,255,0.35)] transition-all hover:opacity-95 sm:w-auto sm:px-8 sm:py-4">
                 Schedule a Consult
               </span>
             </MagneticButton>
             <MagneticButton href="/#work" strength={0.25}>
-              <span className="inline-flex w-full items-center justify-center rounded-full border border-foreground/20 bg-transparent px-6 py-3.5 text-sm font-medium text-foreground/85 transition-all hover:bg-foreground/10 hover:text-foreground sm:w-auto sm:px-7 sm:py-4">
+              <span className="inline-flex w-full items-center justify-center rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-medium text-white transition-all hover:border-white/40 hover:bg-white/10 sm:w-auto sm:px-7 sm:py-4">
                 View Case Studies
               </span>
             </MagneticButton>
+          </motion.div>
+
+          {/* Quick Capability Tags */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs text-hero-sub/60"
+          >
+            <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">✦ RAG & AI Agents</span>
+            <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">✦ Kafka & Spark Streams</span>
+            <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">✦ Full-Stack Next.js</span>
+            <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">✦ 24h Response Guarantee</span>
           </motion.div>
         </main>
 

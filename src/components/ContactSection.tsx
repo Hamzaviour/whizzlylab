@@ -65,7 +65,7 @@ export default function ContactSection() {
                   rel="noreferrer"
                   className="text-foreground/80 hover:underline"
                 >
-                  +92 303 9969903
+                  Chat with us on WhatsApp
                 </a>
               </p>
               <p>

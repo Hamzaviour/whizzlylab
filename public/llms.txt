@@ -1,0 +1,48 @@
+# Whizzly Lab
+
+> Whizzly Lab is an AI, machine learning, and full-stack engineering studio founded by AI engineer Hamza Younas. We build production-grade intelligent systems, real-time data pipelines, and scalable web applications for organizations worldwide.
+
+## Overview
+- **Domain**: https://whizzlylab.com
+- **Founder**: Hamza Younas (https://hamzayounas.netlify.app/)
+- **Contact Email**: whizzlylab@gmail.com
+- **WhatsApp**: https://wa.me/923039969903
+- **GitHub**: https://github.com/Hamzaviour
+- **Hugging Face**: https://hamzavelous-echosense-ai.hf.space/login
+- **Delivery**: Worldwide remote delivery across US, UK, UAE, EU, and Asian time zones with a sub-24h response SLA.
+
+## Core Capabilities
+- **AI & RAG Systems**: Multi-stage Retrieval-Augmented Generation (RAG), autonomous AI agents, LLM fine-tuning, Hugging Face deployments, and hallucination guardrails.
+- **Real-Time Data Pipelines**: Distributed event streaming using Apache Kafka, Apache Spark, and PySpark for high-throughput anomaly detection, ETL, and fraud prevention.
+- **Full-Stack Platforms**: Modern web applications, authenticated dashboards, and microservices built with Next.js, React, TypeScript, Python (FastAPI/Flask), Docker, and AWS/Cloud native infra.
+- **Machine Learning & MLOps**: Supervised & deep neural network models, continuous evaluation loops, model registry, monitoring, and automated retraining pipelines.
+- **Technical Enablement & Workshops**: Specialized engineering workshops on RAG architecture, agentic workflows, Kafka streaming, and production MLOps.
+
+## Flagship Case Studies & Production Builds
+- **EchoSense**: Real-time crisis intervention NLP pipeline utilizing Kafka and Spark NLP to detect high-priority signals, with vector RAG and Hugging Face deployment (70% faster signal detection).
+- **CureCMS Solution**: AI-powered medical billing and revenue cycle management (RCM) system engineered for healthcare providers with strict HIPAA compliance.
+- **COMPLYSECOPS**: Cybersecurity and compliance consulting platform featuring an AI assistant for compliance documentation (saving engineering teams 15+ hours weekly).
+- **OXO Packaging**: Custom high-volume e-commerce platform with automated quote calculation, bulk wholesale ordering, and Stripe integration (handling 500+ daily orders).
+
+## Sitemap & Canonical Links
+- **Homepage**: https://whizzlylab.com
+- **About Whizzly Lab**: https://whizzlylab.com/about
+- **Capabilities & Services**: https://whizzlylab.com/services
+  - AI & RAG: https://whizzlylab.com/services/ai
+  - Machine Learning: https://whizzlylab.com/services/machine-learning
+  - Data Pipelines: https://whizzlylab.com/services/data-pipelines
+  - Web Development: https://whizzlylab.com/services/web-development
+  - Automation: https://whizzlylab.com/services/automation
+  - Data Analytics: https://whizzlylab.com/services/data-analytics
+  - Computer Vision: https://whizzlylab.com/services/computer-vision
+  - Business Solutions: https://whizzlylab.com/services/business-solutions
+- **Pricing & Project Estimator**: https://whizzlylab.com/pricing
+- **Book a Consult / Discovery Call**: https://whizzlylab.com/schedule
+- **Direct Contact Channels**: https://whizzlylab.com/contact
+- **Privacy Policy**: https://whizzlylab.com/privacy
+
+## Client Engagement Model
+- 20–30 minute technical discovery call with direct software architects.
+- Transparent project scoping in USD or PKR.
+- Mutual NDAs signed prior to detailed technical discussions.
+- Weekly deployed demo builds, direct Slack/GitHub integration, and comprehensive documentation handover.

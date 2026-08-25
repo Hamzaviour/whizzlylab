@@ -53,7 +53,7 @@ export default function OurEdge() {
             to production-grade RAG agents — that people actually rely on.
           </p>
           <p className="mt-4 text-[var(--text-secondary)]">
-            Based in Lahore and shipping globally: predictive models, real-time
+            Engineered for reliability and shipping globally: predictive models, real-time
             automation, and full-stack platforms for startups and enterprises who need
             more than a prototype.
           </p>

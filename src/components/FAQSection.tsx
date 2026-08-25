@@ -1,72 +1,99 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
     q: "What services does Whizzly Lab offer?",
-    a: "We offer AI engineering, machine learning, RAG agents, real-time data pipelines (Kafka/Spark), full-stack web development, automation, computer vision, and business solutions — all production-grade and shipped from Lahore to global clients.",
+    a: "We offer AI engineering, machine learning, RAG multi-agent pipelines, real-time data pipelines (Kafka/Spark), full-stack web platforms, automation, computer vision, and custom software systems — all production-grade and shipped to global clients.",
   },
   {
     q: "How long does a typical project take?",
-    a: "Project timelines vary by scope. A simple website takes 2–4 weeks, an AI pipeline 4–8 weeks, and a full SaaS product 3–6 months. We provide a detailed timeline after the discovery call.",
+    a: "Project timelines vary by scope. A targeted feature or pipeline takes 2–4 weeks, an end-to-end AI system 4–8 weeks, and a full enterprise SaaS platform 2–4 months. We provide a detailed architectural roadmap after the discovery call.",
   },
   {
     q: "Do you sign NDAs before discussing projects?",
-    a: "Absolutely. We sign NDAs before any detailed project discussion. Your ideas and data are treated as confidential, and we can work under your NDA or our own.",
+    a: "Absolutely. We sign mutual NDAs before any sensitive project discussions. Your intellectual property, proprietary algorithms, and datasets remain 100% confidential and secure.",
   },
   {
-    q: "What is your response time?",
-    a: "We respond to all inquiries within 24 hours. For urgent matters, reach us on WhatsApp for a faster response.",
+    q: "What is your response time and communication model?",
+    a: "We commit to a sub-24-hour response SLA across all global time zones. For active sprint delivery, we integrate directly into your preferred tools (Slack, Discord, GitHub, Jira) with weekly live demos.",
   },
   {
-    q: "Can you work with our existing team?",
-    a: "Yes. We offer team augmentation, dedicated engineers, and collaborative delivery models. We plug into your workflows — whether that&apos;s Slack, GitHub, or your own project management tools.",
+    q: "Can you augment or collaborate with our existing in-house team?",
+    a: "Yes. We operate both as a standalone delivery partner and as specialized engineering augmentation. We embed seamlessly into your CI/CD pipelines, code reviews, and sprint planning.",
   },
 ];
 
 export default function FAQSection() {
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="py-16 sm:py-20">
-      <div className="mx-auto max-w-3xl">
-        <p className="text-xs tracking-[0.2em] text-foreground/40 uppercase">
-          FAQ
-        </p>
-        <h2
-          className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl"
-          style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
-        >
-          Frequently asked questions
-        </h2>
+    <section className="py-20 sm:py-28">
+      <div className="mx-auto max-w-4xl">
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold text-cyan-300 backdrop-blur-md">
+            <HelpCircle className="h-3.5 w-3.5" />
+            Clarity &amp; Transparency
+          </div>
+          <h2
+            className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
+            style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
+          >
+            Frequently Asked Questions
+          </h2>
+          <p className="mt-3 max-w-xl mx-auto text-hero-sub/75 text-base">
+            Everything you need to know about working with Whizzly Lab.
+          </p>
+        </div>
 
-        <div className="mt-8 space-y-3">
-          {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
-            >
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="flex w-full items-center justify-between px-6 py-5 text-left transition hover:bg-white/5"
-                aria-expanded={open === i}
+        <div className="space-y-4">
+          {faqs.map((faq, i) => {
+            const isOpen = open === i;
+            return (
+              <div
+                key={faq.q}
+                className={`liquid-glass rounded-3xl border transition-all duration-300 overflow-hidden ${
+                  isOpen ? "border-cyan-500/40 shadow-[0_0_30px_rgba(0,240,255,0.1)]" : "border-white/10 hover:border-white/20"
+                }`}
               >
-                <span className="text-base font-medium text-white pr-4">
-                  {faq.q}
-                </span>
-                <ChevronDown
-                  className={`h-5 w-5 shrink-0 text-foreground/50 transition-transform duration-200 ${open === i ? "rotate-180" : ""}`}
-                />
-              </button>
-              {open === i && (
-                <div className="px-6 pb-5 text-sm leading-relaxed text-hero-sub/75">
-                  {faq.a}
-                </div>
-              )}
-            </div>
-          ))}
+                <button
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="flex w-full items-center justify-between p-6 sm:p-7 text-left transition"
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-base sm:text-lg font-semibold text-white pr-4">
+                    {faq.q}
+                  </span>
+                  <div
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
+                      isOpen
+                        ? "border-cyan-400 bg-cyan-500/20 text-cyan-300 rotate-180"
+                        : "border-white/15 bg-white/5 text-hero-sub"
+                    }`}
+                  >
+                    <ChevronDown className="h-4 w-4" />
+                  </div>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <div className="px-6 pb-6 sm:px-7 sm:pb-7 text-sm sm:text-base leading-relaxed text-hero-sub/80 border-t border-white/5 pt-4">
+                        {faq.a}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import Link from "next/link";
 import PageNavbar from "@/components/PageNavbar";
 import CtaFooter from "@/components/CtaFooter";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import BudgetSelect from "@/components/BudgetSelect";
 import { useCurrency } from "@/lib/currency";
 import {
@@ -58,51 +59,59 @@ export default function SchedulePage() {
       <PageNavbar />
 
       <section className="px-4 py-12 sm:px-8 sm:py-24">
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:gap-12">
+        <div className="mx-auto max-w-6xl">
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Schedule" },
+            ]}
+          />
+        </div>
+
+        <div className="mx-auto mt-6 grid max-w-6xl gap-10 lg:grid-cols-2 lg:gap-12">
           <div className="min-w-0">
-            <p className="text-xs tracking-[0.2em] text-foreground/40 uppercase">
-              Schedule
-            </p>
+            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold text-cyan-300 backdrop-blur-md">
+              ✦ Discovery &amp; Strategy
+            </span>
             <h1
-              className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
+              className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
               style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
             >
-              Book a strategy consult
+              Book a Strategy Consult
             </h1>
             <p className="mt-4 text-base leading-relaxed text-hero-sub/80">
-              Tell us what you need — website, AI system, or automation. We
-              reply with availability and a clear next step. Portfolio sites
-              from{" "}
-              <strong className="text-foreground">{format(15000)}</strong>.
+              Tell us about your project — AI/RAG system, real-time data pipelines, or full-stack web platform. We reply within 24 hours with technical feasibility and clear next steps.
             </p>
             <ul className="mt-8 space-y-3 text-sm text-hero-sub/75">
-              <li>▸ 20–30 minute discovery call</li>
-              <li>▸ Scope + budget clarity in {currency}</li>
-              <li>▸ No pressure — just possibilities</li>
+              <li className="flex items-center gap-2">
+                <span className="text-cyan-400">✦</span> 20–30 minute technical discovery call
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-cyan-400">✦</span> Scope, timeline, and architectural clarity in {currency}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-cyan-400">✦</span> Direct discussion with engineering leads
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-cyan-400">✦</span> Mutual NDA signed prior to discussion upon request
+              </li>
             </ul>
-            <p className="mt-8 text-sm text-foreground/50">
-              Email:{" "}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
-                href={`mailto:${COMPANY_EMAIL}`}
-                className="text-foreground underline-offset-4 hover:underline"
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-5 py-2.5 text-sm font-medium text-emerald-300 transition hover:bg-emerald-500/20"
               >
-                {COMPANY_EMAIL}
+                Chat on WhatsApp
               </a>
-            </p>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-4 inline-flex rounded-full border border-emerald-500/40 bg-emerald-500/10 px-5 py-2.5 text-sm font-medium text-emerald-400 transition hover:bg-emerald-500/20"
-            >
-              Chat on WhatsApp
-            </a>
-            <Link
-              href="/pricing"
-              className="mt-4 block text-sm text-[#00F0FF] hover:underline"
-            >
-              See pricing estimator →
-            </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-white/10"
+              >
+                Explore Pricing Estimator →
+              </Link>
+            </div>
           </div>
 
           <form

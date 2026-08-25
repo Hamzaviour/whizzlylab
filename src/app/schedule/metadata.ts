@@ -4,7 +4,7 @@ import { BASE_URL, ogImage } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Schedule a Consult — Whizzly Lab | AI Strategy Call",
   description:
-    "Book a 20–30 minute discovery call with Whizzly Lab. Discuss your AI, ML, or full-stack project and get scope + budget clarity. From Lahore, shipping globally.",
+    "Book a 20–30 minute discovery call with Whizzly Lab. Discuss your AI, ML, or full-stack project and get scope + budget clarity — shipping globally.",
   alternates: {
     canonical: `${BASE_URL}/schedule`,
   },

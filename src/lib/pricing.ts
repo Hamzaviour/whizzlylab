@@ -42,9 +42,8 @@ export type InfraFee = {
 };
 
 /**
- * Pakistan market ranges per service (Whizzly Lab). Values are rounded
- * averages for the local market. `min`/`max` are stored in PKR; they are
- * rendered in the user's chosen currency (PKR or USD) via the currency context.
+ * Market ranges per service (Whizzly Lab). `min`/`max` values are rendered
+ * in the user's chosen currency (PKR or USD) via the currency context.
  */
 export const SERVICE_PRICING: ServicePricing[] = [
   {

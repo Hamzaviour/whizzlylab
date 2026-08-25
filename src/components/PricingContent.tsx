@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ServiceSelector from "./ServiceSelector";
 import PricingCalculator from "./PricingCalculator";
+import Breadcrumbs from "./Breadcrumbs";
 import { getServicePricing, INFRASTRUCTURE_FEES, type ServiceKey } from "@/lib/pricing";
 import { useCurrency, CurrencyToggle } from "@/lib/currency";
 
@@ -15,17 +16,20 @@ export default function PricingContent() {
   return (
     <section className="px-4 py-12 sm:px-8 sm:py-24">
       <div className="mx-auto w-full max-w-7xl min-w-0">
-        <p className="text-xs tracking-[0.2em] text-foreground/40 uppercase">
-          Pricing · {service.label}
-        </p>
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Pricing" },
+          ]}
+        />
         <h1
-          className="mt-3 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl"
+          className="mt-3 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl text-white"
           style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
         >
           {service.label} pricing in {currency}
         </h1>
         <p className="mt-4 max-w-2xl text-sm text-hero-sub/80 sm:text-base md:text-lg">
-          {service.blurb} Ranges below are Pakistan-market averages and can
+          {service.blurb} Ranges below are industry benchmark averages and can
           vary with functionality, complexity, and service tier.
         </p>
 
@@ -100,15 +104,14 @@ export default function PricingContent() {
         {serviceKey === "web" && (
           <div className="mt-14 sm:mt-16">
             <h2
-              className="mb-2 text-xl font-semibold sm:text-2xl md:text-3xl"
+              className="mb-2 text-xl font-semibold sm:text-2xl md:text-3xl text-white"
               style={{ fontFamily: "'Syne', sans-serif" }}
             >
               Mandatory infrastructure fees (annual)
             </h2>
             <p className="mb-6 max-w-2xl text-sm text-hero-sub/70">
               Beyond development, budget for domain, hosting, and security —
-              billed yearly (or on a fixed multi-year cycle for some .pk
-              domains).
+              billed yearly (or on a multi-year cycle depending on TLD and cloud tier).
             </p>
 
             <div className="space-y-3 md:hidden">

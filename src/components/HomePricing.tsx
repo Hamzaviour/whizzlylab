@@ -16,33 +16,36 @@ export default function HomePricing() {
   return (
     <section
       id="pricing"
-      className="bg-transparent px-4 py-16 sm:px-8 md:px-16 md:py-28"
+      className="bg-transparent px-4 py-20 sm:px-8 sm:py-32"
     >
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-12 text-center">
-          <p className="font-mono text-xs tracking-widest text-foreground/45 uppercase">
-            Pricing · {service.label}
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-14 text-center">
+          <p className="text-xs font-semibold tracking-[0.2em] text-cyan-400/80 uppercase">
+            Transparent Pricing Calculator
           </p>
-          <h2 className="font-general mt-3 text-3xl font-normal md:text-4xl lg:text-5xl">
+          <h2
+            className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
+            style={{ fontFamily: "'Syne', 'General Sans', sans-serif" }}
+          >
             {service.label} from {format(from)}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm text-hero-sub/75">
-            {service.blurb} Fine-tune with the estimator, or{" "}
-            <Link href="/pricing" className="text-[#00F0FF] hover:underline">
-              view full pricing table
+          <p className="mx-auto mt-4 max-w-xl text-base text-hero-sub/75">
+            {service.blurb} Fine-tune scope with the interactive estimator below, or{" "}
+            <Link href="/pricing" className="text-[#00F0FF] underline underline-offset-4 hover:text-white">
+              explore full package breakdown
             </Link>
             .
           </p>
-          <div className="mt-6">
+          <div className="mt-8 flex justify-center">
             <ServiceSelector value={serviceKey} onChange={setServiceKey} />
           </div>
-          <div className="mt-5 flex justify-center">
+          <div className="mt-4 flex justify-center">
             <CurrencyToggle />
           </div>
         </div>
         <PricingCalculator service={service} />
         <p className="mt-6 text-center text-xs text-foreground/40">
-          Prices shown in {currency}. Switch currency from the top bar.
+          Estimated project investment shown in {currency}. Switch currency at any time.
         </p>
       </div>
     </section>

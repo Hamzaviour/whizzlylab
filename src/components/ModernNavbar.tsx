@@ -2,29 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { animate } from "animejs";
+import { Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import PAGE_NAV from "@/lib/nav";
 import { WHATSAPP_URL } from "@/lib/contact";
 import { CurrencyToggle } from "@/lib/currency";
 
-/**
- * Compact black nav hug links (Home → Contact) + separate CTA cards
- * Mobile: hamburger menu only. Desktop (lg+): links + CTAs.
- */
 export default function ModernNavbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const el = document.querySelector(".modern-nav");
-    if (!el) return;
-    animate(el, {
-      opacity: [0, 1],
-      translateY: [-16, 0],
-      duration: 700,
-      ease: "out(3)",
-    });
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -41,96 +37,139 @@ export default function ModernNavbar() {
   }, [open]);
 
   return (
-    <header className="modern-nav relative z-50 w-full px-3 pt-3 opacity-0 sm:px-6 sm:pt-5">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-center gap-2 sm:gap-3 lg:gap-4">
-        {/* Desktop: width hugs Home…Contact */}
-        <nav className="hidden w-fit min-h-[56px] items-center rounded-2xl border border-white/12 bg-black px-4 py-3 lg:inline-flex">
-          <div className="flex items-center gap-5 whitespace-nowrap">
-            {PAGE_NAV.map((item) => (
+    <header className="sticky top-0 z-50 w-full px-3 pt-3 transition-all duration-300 sm:px-6 sm:pt-4">
+      <div
+        className={`mx-auto flex w-full max-w-6xl items-center justify-between rounded-2xl border transition-all duration-300 ${
+          scrolled
+            ? "border-white/15 bg-[#05010f]/85 px-4 py-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+            : "border-white/10 bg-[#05010f]/60 px-4 py-3 backdrop-blur-md"
+        }`}
+      >
+        {/* Brand Logo & Name */}
+        <Link href="/" className="group flex items-center gap-3">
+          <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-white/5 transition-transform duration-300 group-hover:scale-105 group-hover:border-cyan-400/40">
+            <Image
+              src="/icon.png"
+              alt="Whizzly Lab — AI & Full-Stack Engineering Studio Icon"
+              width={28}
+              height={28}
+              className="h-6 w-6 object-contain"
+            />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+              Whizzly <span className="bg-gradient-to-r from-[#00F0FF] to-[#a855f7] bg-clip-text text-transparent">Lab</span>
+            </span>
+            <span className="hidden text-[10px] font-medium tracking-wider text-hero-sub/60 uppercase sm:inline-block">
+              AI & Engineering
+            </span>
+          </div>
+        </Link>
+
+        {/* Desktop Navigation Links */}
+        <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 lg:flex">
+          {PAGE_NAV.map((item) => {
+            const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+            return (
               <Link
                 key={item.label}
                 href={item.href}
-                className="interactive-link text-sm font-medium text-foreground/90 transition-colors duration-200 hover:text-foreground"
+                className={`relative rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 ${
+                  isActive
+                    ? "bg-white/15 text-white shadow-sm"
+                    : "text-hero-sub/80 hover:bg-white/5 hover:text-white"
+                }`}
               >
                 {item.label}
               </Link>
-            ))}
-          </div>
+            );
+          })}
         </nav>
 
-        {/* Mobile / tablet nav shell */}
-        <nav className="flex min-h-[48px] w-full max-w-full items-center justify-between rounded-2xl border border-white/12 bg-black px-3.5 py-2.5 sm:min-h-[52px] sm:px-4 lg:hidden">
-          <Link
-            href="/"
-            className="truncate text-sm font-medium text-foreground/90"
+        {/* Desktop Action Group */}
+        <div className="hidden items-center gap-3 lg:flex">
+          <CurrencyToggle />
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-medium text-emerald-400 transition-all hover:border-emerald-400/50 hover:bg-emerald-500/20"
           >
-            Whizzly Lab
+            WhatsApp
+            <ArrowUpRight className="h-3 w-3" />
+          </a>
+          <Link
+            href="/schedule"
+            className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#6366f1] via-[#a855f7] to-[#00f0ff] px-4 py-1.5 text-xs font-semibold text-black transition-all hover:opacity-90 hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+          >
+            <Sparkles className="h-3 w-3" />
+            Schedule Consult
           </Link>
+        </div>
+
+        {/* Mobile menu trigger */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <CurrencyToggle className="scale-90" />
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="shrink-0 rounded-full border border-foreground/20 p-2.5"
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition hover:bg-white/10"
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
-        </nav>
-
-        <Link
-          href="/schedule"
-          className="hidden shrink-0 items-center rounded-2xl border border-white/12 bg-black px-5 py-3.5 text-sm font-medium text-foreground transition-all hover:border-white/25 hover:bg-white/5 lg:inline-flex lg:min-h-[56px]"
-        >
-          Schedule a Consult
-        </Link>
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="hidden shrink-0 items-center rounded-2xl border border-emerald-500/30 bg-black px-4 py-3.5 text-sm font-medium text-emerald-400 transition-all hover:border-emerald-400/50 hover:bg-emerald-500/10 lg:inline-flex lg:min-h-[56px]"
-        >
-          WhatsApp
-        </a>
-        <CurrencyToggle className="hidden lg:inline-flex" />
+        </div>
       </div>
 
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            className="absolute top-full right-3 left-3 z-40 mt-2 max-h-[min(70vh,520px)] overflow-y-auto rounded-2xl border border-white/10 bg-black p-3 shadow-2xl sm:right-6 sm:left-6 lg:hidden"
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full right-3 left-3 z-50 mt-2 overflow-hidden rounded-2xl border border-white/15 bg-[#05010f]/95 p-4 shadow-2xl backdrop-blur-2xl sm:right-6 sm:left-6 lg:hidden"
           >
-            <div className="flex flex-col gap-0.5">
-              {PAGE_NAV.map((item) => (
+            <div className="flex flex-col gap-1">
+              {PAGE_NAV.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={`rounded-xl px-4 py-3 text-sm font-medium transition ${
+                      isActive
+                        ? "bg-white/15 text-white font-semibold"
+                        : "text-hero-sub/80 hover:bg-white/5 hover:text-white"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+
+              <div className="mt-3 flex flex-col gap-2 border-t border-white/10 pt-3">
                 <Link
-                  key={item.label}
-                  href={item.href}
+                  href="/schedule"
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-3 text-sm text-foreground/90 hover:bg-white/5"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#00f0ff] px-4 py-3 text-center text-sm font-semibold text-black"
                 >
-                  {item.label}
+                  <Sparkles className="h-4 w-4" />
+                  Schedule a Consult
                 </Link>
-              ))}
-              <Link
-                href="/schedule"
-                onClick={() => setOpen(false)}
-                className="mt-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm"
-              >
-                Schedule a Consult
-              </Link>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => setOpen(false)}
-                className="mt-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-center text-sm text-emerald-400"
-              >
-                WhatsApp
-              </a>
-              <div className="mt-2 flex justify-center">
-                <CurrencyToggle />
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-center text-sm font-medium text-emerald-400"
+                >
+                  Chat on WhatsApp
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
               </div>
             </div>
           </motion.div>

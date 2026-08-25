@@ -105,10 +105,9 @@ export default function ContactCTA() {
                     href={WHATSAPP_URL}
                     className="text-[var(--cyan)] hover:underline"
                   >
-                    +92 303 9969903
+                    Chat with us on WhatsApp
                   </a>
                 </p>
-                <p>Lahore, Punjab, Pakistan</p>
               </div>
             </div>
 

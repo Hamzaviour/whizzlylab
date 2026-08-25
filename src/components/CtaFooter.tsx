@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import Hls from "hls.js";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import MagneticButton from "./MagneticButton";
-import { WHATSAPP_URL } from "@/lib/contact";
+import { WHATSAPP_URL, COMPANY_EMAIL } from "@/lib/contact";
 
 const HLS_SRC =
   "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
@@ -31,9 +32,9 @@ export default function CtaFooter() {
   }, []);
 
   return (
-    <section
+    <footer
       id="cta"
-      className="relative overflow-hidden bg-black px-4 py-20 text-center sm:px-6 sm:py-32 md:px-16 lg:px-24"
+      className="relative overflow-hidden bg-black px-4 pt-20 pb-12 sm:px-8 sm:pt-32"
     >
       <video
         ref={videoRef}
@@ -41,108 +42,139 @@ export default function CtaFooter() {
         loop
         muted
         playsInline
-        className="absolute inset-0 z-0 h-full w-full object-cover"
+        className="absolute inset-0 z-0 h-full w-full object-cover opacity-60"
       />
 
       <div
-        className="pointer-events-none absolute top-0 right-0 left-0 z-[1]"
-        style={{
-          height: "200px",
-          background: "linear-gradient(to bottom, black, transparent)",
-        }}
+        className="pointer-events-none absolute top-0 right-0 left-0 z-[1] h-48 bg-gradient-to-b from-[#05010f] to-transparent"
       />
       <div
-        className="pointer-events-none absolute right-0 bottom-0 left-0 z-[1]"
-        style={{
-          height: "200px",
-          background: "linear-gradient(to top, black, transparent)",
-        }}
+        className="pointer-events-none absolute right-0 bottom-0 left-0 z-[1] h-64 bg-gradient-to-t from-black via-black/80 to-transparent"
       />
 
-      <div className="relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="font-heading mx-auto mb-4 max-w-3xl text-4xl leading-[0.95] font-normal tracking-tight text-white italic sm:text-5xl md:text-6xl lg:text-7xl md:leading-[0.85]"
-        >
-          Schedule a consult.
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-body mx-auto mb-8 max-w-xl text-sm font-light text-white/60 md:text-base"
-        >
-          Book a free strategy call. Portfolio sites from PKR 15,000. No
-          commitment, no pressure. Just possibilities.
-        </motion.p>
+      <div className="relative z-10 mx-auto max-w-6xl">
+        {/* Main CTA Block */}
+        <div className="text-center max-w-3xl mx-auto mb-20 sm:mb-28">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold text-cyan-300 backdrop-blur-md"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            Let&apos;s Build Together
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="font-heading mx-auto text-4xl leading-[1.05] font-normal tracking-tight text-white italic sm:text-5xl md:text-6xl lg:text-7xl"
+          >
+            Schedule a strategy consult.
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-body mx-auto mt-6 max-w-xl text-base text-hero-sub/85"
+          >
+            Book a 20–30 minute discovery call. Discuss technical feasibility, architecture, and scope clarity with no pressure.
+          </motion.p>
 
-        <div className="flex flex-col items-stretch justify-center gap-3 px-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 md:gap-6">
-          <MagneticButton href="/schedule">
-            <span className="liquid-glass-strong font-body flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/10 sm:w-auto">
-              Schedule a Consult
-              <ArrowUpRight className="h-5 w-5" />
-            </span>
-          </MagneticButton>
-          <MagneticButton href={WHATSAPP_URL} strength={0.28}>
-            <span className="font-body flex w-full items-center justify-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-500/20 px-6 py-3 text-sm font-medium text-emerald-200 transition-colors hover:bg-emerald-500/30 sm:w-auto">
-              WhatsApp
-              <ArrowUpRight className="h-4 w-4" />
-            </span>
-          </MagneticButton>
-          <MagneticButton href="/pricing" strength={0.28}>
-            <span className="font-body flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-colors hover:bg-white/90 sm:w-auto">
-              View Pricing
-              <ArrowUpRight className="h-4 w-4" />
-            </span>
-          </MagneticButton>
+          <div className="mt-10 flex flex-col items-stretch justify-center gap-3 px-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 md:gap-5">
+            <MagneticButton href="/schedule">
+              <span className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#6366f1] via-[#a855f7] to-[#00f0ff] px-8 py-3.5 text-sm font-semibold text-black shadow-[0_0_25px_rgba(0,240,255,0.35)] transition-all hover:opacity-90 sm:w-auto">
+                Schedule a Consult
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </MagneticButton>
+            <MagneticButton href={WHATSAPP_URL} strength={0.28}>
+              <span className="font-body flex w-full items-center justify-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-500/15 px-6 py-3.5 text-sm font-medium text-emerald-300 transition-colors hover:bg-emerald-500/25 sm:w-auto">
+                WhatsApp Direct
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </MagneticButton>
+            <MagneticButton href="/pricing" strength={0.28}>
+              <span className="font-body flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-medium text-white transition-colors hover:border-white/40 hover:bg-white/10 sm:w-auto">
+                View Pricing
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </MagneticButton>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55, delay: 0.15 }}
-          className="mt-16 rounded-2xl border border-white/10 bg-black px-4 py-5 sm:mt-32 sm:px-6 sm:py-6 md:px-8 md:py-7"
-        >
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="font-body text-xs font-light text-white/40">
-              &copy; {new Date().getFullYear()} Whizzly Lab. All rights reserved.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-6">
-              <Link
-                href="/about"
-                className="interactive-link font-body text-xs font-light text-white/40 hover:text-white/70"
-              >
-                About
-              </Link>
-              <Link
-                href="/pricing"
-                className="interactive-link font-body text-xs font-light text-white/40 hover:text-white/70"
-              >
-                Pricing
-              </Link>
-              <Link
-                href="/contact"
-                className="interactive-link font-body text-xs font-light text-white/40 hover:text-white/70"
-              >
-                Contact
-              </Link>
-              <a
-                href="https://hamzayounas.netlify.app/"
-                target="_blank"
-                rel="noreferrer"
-                className="interactive-link font-body text-xs font-light text-white/40 hover:text-white/70"
-              >
-                Portfolio
-              </a>
+        {/* Structured Multi-Column Footer */}
+        <div className="liquid-glass rounded-3xl border border-white/10 p-8 sm:p-12">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+            {/* Brand column */}
+            <div className="lg:col-span-2 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-white/5">
+                  <Image
+                    src="/icon.png"
+                    alt="Whizzly Lab — Engineering Studio Logo Mark"
+                    width={32}
+                    height={32}
+                    className="h-7 w-7 object-contain"
+                  />
+                </div>
+                <span className="text-lg font-bold text-white tracking-tight">
+                  Whizzly <span className="bg-gradient-to-r from-[#00F0FF] to-[#a855f7] bg-clip-text text-transparent">Lab</span>
+                </span>
+              </div>
+              <p className="text-sm leading-relaxed text-hero-sub/70 max-w-sm">
+                AI and full-stack engineering studio building intelligent systems, real-time data pipelines, and production products that scale.
+              </p>
+              <div className="text-xs text-hero-sub/60">
+                <p>Email: <a href={`mailto:${COMPANY_EMAIL}`} className="text-white hover:underline">{COMPANY_EMAIL}</a></p>
+                <p className="mt-1">Delivering globally across time zones</p>
+              </div>
+            </div>
+
+            {/* Navigation Column */}
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Pages</h4>
+              <ul className="mt-4 space-y-2 text-sm text-hero-sub/70">
+                <li><Link href="/" className="hover:text-white transition">Home</Link></li>
+                <li><Link href="/about" className="hover:text-white transition">About</Link></li>
+                <li><Link href="/services" className="hover:text-white transition">Services</Link></li>
+                <li><Link href="/pricing" className="hover:text-white transition">Pricing</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition">Contact</Link></li>
+              </ul>
+            </div>
+
+            {/* Services Column */}
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Services</h4>
+              <ul className="mt-4 space-y-2 text-sm text-hero-sub/70">
+                <li><Link href="/services/ai" className="hover:text-white transition">AI &amp; RAG</Link></li>
+                <li><Link href="/services/machine-learning" className="hover:text-white transition">Machine Learning</Link></li>
+                <li><Link href="/services/data-pipelines" className="hover:text-white transition">Data Pipelines</Link></li>
+                <li><Link href="/services/web-development" className="hover:text-white transition">Web Development</Link></li>
+                <li><Link href="/services/automation" className="hover:text-white transition">Automation</Link></li>
+              </ul>
+            </div>
+
+            {/* Ecosystem & Legal */}
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Ecosystem</h4>
+              <ul className="mt-4 space-y-2 text-sm text-hero-sub/70">
+                <li><a href="https://hamzayounas.netlify.app/" target="_blank" rel="noreferrer" className="hover:text-white transition">Founder Portfolio</a></li>
+                <li><a href="https://github.com/Hamzaviour" target="_blank" rel="noreferrer" className="hover:text-white transition">GitHub</a></li>
+                <li><a href="https://hamzavelous-echosense-ai.hf.space/login" target="_blank" rel="noreferrer" className="hover:text-white transition">Hugging Face</a></li>
+                <li><Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
+              </ul>
             </div>
           </div>
-        </motion.div>
+
+          <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row text-xs text-hero-sub/50">
+            <p>&copy; {new Date().getFullYear()} Whizzly Lab. All rights reserved.</p>
+            <p>Designed and engineered for production excellence.</p>
+          </div>
+        </div>
       </div>
-    </section>
+    </footer>
   );
 }
