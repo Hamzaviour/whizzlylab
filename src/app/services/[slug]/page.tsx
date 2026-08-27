@@ -26,12 +26,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${service.title} — Whizzly Lab`,
       description: service.short,
       url: canonicalUrl,
+      type: "website",
+      siteName: "Whizzly Lab",
       images: [
         {
-          url: ogImage("/og-image.png"),
+          url: `${BASE_URL}/services/${slug}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${service.title} — Whizzly Lab`,
+          alt: `${service.title} — Whizzly Lab AI Studio`,
+          type: "image/png",
         },
       ],
     },
@@ -39,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${service.title} — Whizzly Lab`,
       description: service.short,
-      images: [ogImage("/og-image.png")],
+      images: [`${BASE_URL}/services/${slug}/opengraph-image`],
     },
   };
 }

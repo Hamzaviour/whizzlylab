@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seo:agent": "python scripts/seo/seo_agent_runner.py",
+    "seo:audit": "python scripts/seo/seo_agent_runner.py --no-index",
+    "seo:index": "python scripts/seo/instant_index.py"
   },
   "dependencies": {
     "@fontsource/geist-sans": "^5.2.5",

@@ -1,0 +1,97 @@
+name: Autonomous SEO Agent
+
+on:
+  schedule:
+    # Run every Monday at 06:00 UTC
+    - cron: '0 6 * * 1'
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'next.config.ts'
+      - 'package.json'
+      - '.github/workflows/seo-agent.yml'
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'Target Base URL to Audit (e.g. https://whizzlylab.com)'
+        required: false
+        default: 'https://whizzlylab.com'
+      run_instant_indexing:
+        description: 'Dispatch Instant IndexNow submission'
+        required: true
+        type: boolean
+        default: true
+      dry_run:
+        description: 'Dry run mode (simulate index dispatch)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  seo_agent:
+    name: SEO Agent Audit & Instant Indexing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4 requests lxml
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Node Dependencies
+        run: npm ci || npm install
+
+      - name: Verify Next.js Build & OG Image Assets
+        run: npm run build
+        env:
+          NEXT_PUBLIC_APP_URL: ${{ github.event.inputs.base_url || 'https://whizzlylab.com' }}
+
+      - name: Run Autonomous SEO Agent
+        run: |
+          FLAGS=""
+          if [ "${{ github.event.inputs.run_instant_indexing }}" = "false" ]; then
+            FLAGS="$FLAGS --no-index"
+          fi
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            FLAGS="$FLAGS --dry-run"
+          fi
+          
+          python scripts/seo/seo_agent_runner.py \
+            --base-url "${{ github.event.inputs.base_url || 'https://whizzlylab.com' }}" \
+            $FLAGS
+        env:
+          GITHUB_STEP_SUMMARY: ${{ env.GITHUB_STEP_SUMMARY }}
+          INDEXNOW_KEY: c79f4e2417a840e691c2c31e9a263641
+
+      - name: Archive SEO Audit Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-audit-artifacts
+          path: |
+            seo-audit-report.json
+            seo-audit-report.md
+          retention-days: 30

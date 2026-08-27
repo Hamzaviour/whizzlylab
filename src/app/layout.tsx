@@ -59,10 +59,17 @@ export const metadata: Metadata = {
     siteName: "Whizzly Lab",
     images: [
       {
-        url: `${BASE_URL}/og-image.png`,
+        url: `${BASE_URL}/opengraph-image`,
         width: 1200,
         height: 630,
         alt: "Whizzly Lab — AI Studio & Software Engineering Services",
+        type: "image/png",
+      },
+      {
+        url: `${BASE_URL}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "Whizzly Lab AI Studio",
         type: "image/png",
       },
     ],
@@ -72,7 +79,7 @@ export const metadata: Metadata = {
     title: "Whizzly Lab — AI Studio, ML & Software Engineering Services",
     description:
       "Whizzly Lab is an elite AI studio delivering AI services, machine learning solutions, real-time Kafka data pipelines, and full-stack software engineering services.",
-    images: [`${BASE_URL}/og-image.png`],
+    images: [`${BASE_URL}/twitter-image`, `${BASE_URL}/og-image.png`],
     creator: "@whizzlylab",
   },
   alternates: {
