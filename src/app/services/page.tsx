@@ -16,15 +16,23 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/services`,
   },
   openGraph: {
-    title: "Services — Whizzly Lab",
-    description: "AI, ML, data pipelines & full-stack engineering services.",
+    title: "Services — Whizzly Lab | AI, ML & Full-Stack Development",
+    description: "AI, ML, real-time data pipelines & full-stack engineering services by Whizzly Lab.",
     url: `${BASE_URL}/services`,
-    images: [ogImage()],
+    images: [
+      {
+        url: ogImage("/og-image.png"),
+        width: 1200,
+        height: 630,
+        alt: "Services — Whizzly Lab",
+      },
+    ],
   },
   twitter: {
-    title: "Services — Whizzly Lab",
-    description: "AI, ML & full-stack engineering services.",
-    images: [ogImage()],
+    card: "summary_large_image",
+    title: "Services — Whizzly Lab | AI, ML & Full-Stack Engineering",
+    description: "AI, ML & full-stack engineering services by Whizzly Lab.",
+    images: [ogImage("/og-image.png")],
   },
 };
 

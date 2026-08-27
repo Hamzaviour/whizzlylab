@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { BASE_URL } from "@/lib/seo";
 
 export interface BreadcrumbItem {
   label: string;
@@ -7,30 +8,47 @@ export interface BreadcrumbItem {
 }
 
 export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      item: item.href ? (item.href.startsWith("http") ? item.href : `${BASE_URL}${item.href}`) : undefined,
+    })),
+  };
+
   return (
-    <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs">
-      {items.map((item, index) => {
-        const isLast = index === items.length - 1;
-        return (
-          <div key={item.label} className="flex items-center gap-1.5">
-            {index > 0 && (
-              <ChevronRight className="h-3 w-3 text-foreground/30" />
-            )}
-            {isLast ? (
-              <span className="text-foreground/50" aria-current="page">
-                {item.label}
-              </span>
-            ) : item.href ? (
-              <Link
-                href={item.href}
-                className="text-foreground/50 transition hover:text-foreground"
-              >
-                {item.label}
-              </Link>
-            ) : null}
-          </div>
-        );
-      })}
-    </nav>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <div key={item.label} className="flex items-center gap-1.5">
+              {index > 0 && (
+                <ChevronRight className="h-3 w-3 text-foreground/30" />
+              )}
+              {isLast ? (
+                <span className="text-foreground/50" aria-current="page">
+                  {item.label}
+                </span>
+              ) : item.href ? (
+                <Link
+                  href={item.href}
+                  className="text-foreground/50 transition hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              ) : null}
+            </div>
+          );
+        })}
+      </nav>
+    </>
   );
 }

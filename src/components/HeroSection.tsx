@@ -60,7 +60,8 @@ export default function HeroSection() {
               alt="Whizzly Lab — AI Systems, Real-Time Data Pipelines & Full-Stack Products"
               width={360}
               height={360}
-              className="relative z-10 my-2 h-36 w-auto object-contain sm:h-44 md:h-52 lg:h-60"
+              style={{ width: "auto" }}
+              className="relative z-10 my-2 h-36 object-contain sm:h-44 md:h-52 lg:h-60"
               priority
             />
           </motion.div>

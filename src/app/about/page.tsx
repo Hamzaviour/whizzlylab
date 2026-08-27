@@ -20,23 +20,31 @@ import FAQSection from "@/components/FAQSection";
 import { BASE_URL, ogImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About — Whizzly Lab | AI Engineering Studio",
+  title: "About — Whizzly Lab | AI, ML & Full-Stack Engineering Studio",
   description:
-    "Whizzly Lab is an AI and full-stack engineering studio founded by Hamza Younas, with a team of developers and engineers shipping intelligent systems worldwide. Portfolio includes EchoSense, CureCMS, COMPLYSECOPS.",
+    "Whizzly Lab is an AI, machine learning, and full-stack engineering studio founded by Hamza Younas. We build intelligent systems, real-time data pipelines, and production software for global clients.",
   alternates: {
     canonical: `${BASE_URL}/about`,
   },
   openGraph: {
-    title: "About — Whizzly Lab",
+    title: "About — Whizzly Lab | AI, ML & Full-Stack Engineering Studio",
     description:
-      "Founded by AI engineer Hamza Younas — a team of full-stack developers, ML engineers, and systems architects shipping globally.",
+      "Whizzly Lab is an AI, machine learning, and full-stack engineering studio founded by Hamza Younas. Building intelligent systems that ship.",
     url: `${BASE_URL}/about`,
-    images: [ogImage()],
+    images: [
+      {
+        url: ogImage("/og-image.png"),
+        width: 1200,
+        height: 630,
+        alt: "About Whizzly Lab",
+      },
+    ],
   },
   twitter: {
-    title: "About — Whizzly Lab",
-    description: "AI engineering studio founded by Hamza Younas.",
-    images: [ogImage()],
+    card: "summary_large_image",
+    title: "About — Whizzly Lab | AI Engineering Studio",
+    description: "AI, ML & full-stack engineering studio founded by Hamza Younas.",
+    images: [ogImage("/og-image.png")],
   },
 };
 
@@ -117,6 +125,29 @@ const PROCESS_STEPS = [
 export default function AboutPage() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-[hsl(260_87%_3%)] text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "@id": `${BASE_URL}/about#webpage`,
+            url: `${BASE_URL}/about`,
+            name: "About Whizzly Lab — AI, ML & Full-Stack Engineering Studio",
+            description:
+              "Whizzly Lab is an AI, machine learning, and full-stack engineering studio founded by Hamza Younas. We engineer intelligent software systems that ship and scale.",
+            isPartOf: {
+              "@id": `${BASE_URL}/#website`,
+            },
+            about: {
+              "@id": `${BASE_URL}/#organization`,
+            },
+            mainEntity: {
+              "@id": `${BASE_URL}/#organization`,
+            },
+          }),
+        }}
+      />
       <PageNavbar />
 
       {/* Hero Header Section */}

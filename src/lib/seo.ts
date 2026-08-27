@@ -9,7 +9,7 @@ export const BASE_URL =
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "") ||
   "https://whizzlylab.com";
 
-export function ogImage(path = "/logo-og.jpg") {
+export function ogImage(path = "/og-image.png") {
   return `${BASE_URL}${path}`;
 }
 

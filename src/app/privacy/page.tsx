@@ -16,12 +16,20 @@ export const metadata = {
     title: "Privacy Policy — Whizzly Lab",
     description: "Learn how Whizzly Lab protects and respects your privacy.",
     url: `${BASE_URL}/privacy`,
-    images: [ogImage()],
+    images: [
+      {
+        url: ogImage("/og-image.png"),
+        width: 1200,
+        height: 630,
+        alt: "Privacy Policy — Whizzly Lab",
+      },
+    ],
   },
   twitter: {
+    card: "summary_large_image",
     title: "Privacy Policy — Whizzly Lab",
     description: "Whizzly Lab privacy and data protection standards.",
-    images: [ogImage()],
+    images: [ogImage("/og-image.png")],
   },
 };
 

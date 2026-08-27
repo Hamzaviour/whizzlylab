@@ -8,16 +8,23 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/schedule`,
   },
-  robots: "noindex, follow",
   openGraph: {
     title: "Schedule a Consult — Whizzly Lab",
-    description: "Book a strategy call for your AI or full-stack project.",
+    description: "Book a strategy call for your AI or full-stack project with Whizzly Lab.",
     url: `${BASE_URL}/schedule`,
-    images: [ogImage()],
+    images: [
+      {
+        url: ogImage("/og-image.png"),
+        width: 1200,
+        height: 630,
+        alt: "Schedule a Consult — Whizzly Lab",
+      },
+    ],
   },
   twitter: {
+    card: "summary_large_image",
     title: "Schedule a Consult — Whizzly Lab",
     description: "Book a discovery call with Whizzly Lab.",
-    images: [ogImage()],
+    images: [ogImage("/og-image.png")],
   },
 };

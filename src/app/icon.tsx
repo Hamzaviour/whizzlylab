@@ -7,7 +7,7 @@ export const contentType = "image/png";
 
 /** Large tab icon — logo scaled up to dominate the mark */
 export default async function Icon() {
-  const bytes = await readFile(join(process.cwd(), "public", "logo.png"));
+  const bytes = await readFile(join(process.cwd(), "public", "icon.png"));
   const logoSrc = `data:image/png;base64,${Buffer.from(bytes).toString("base64")}`;
 
   return new ImageResponse(
@@ -26,12 +26,11 @@ export default async function Icon() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={logoSrc}
-          width={580}
-          height={464}
+          width={440}
+          height={440}
           alt=""
           style={{
             objectFit: "contain",
-            transform: "scale(1.22)",
           }}
         />
       </div>

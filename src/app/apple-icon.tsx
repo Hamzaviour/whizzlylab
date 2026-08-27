@@ -6,7 +6,7 @@ export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
 export default async function AppleIcon() {
-  const bytes = await readFile(join(process.cwd(), "public", "logo.png"));
+  const bytes = await readFile(join(process.cwd(), "public", "icon.png"));
   const logoSrc = `data:image/png;base64,${Buffer.from(bytes).toString("base64")}`;
 
   return new ImageResponse(
@@ -26,12 +26,11 @@ export default async function AppleIcon() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={logoSrc}
-          width={200}
-          height={160}
+          width={150}
+          height={150}
           alt=""
           style={{
             objectFit: "contain",
-            transform: "scale(1.25)",
           }}
         />
       </div>

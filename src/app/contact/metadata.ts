@@ -9,14 +9,22 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/contact`,
   },
   openGraph: {
-    title: "Contact — Whizzly Lab",
-    description: "Get in touch with Whizzly Lab — AI engineering studio.",
+    title: "Contact — Whizzly Lab | Get in Touch",
+    description: "Get in touch with Whizzly Lab — AI, ML & full-stack engineering studio.",
     url: `${BASE_URL}/contact`,
-    images: [ogImage()],
+    images: [
+      {
+        url: ogImage("/og-image.png"),
+        width: 1200,
+        height: 630,
+        alt: "Contact Whizzly Lab",
+      },
+    ],
   },
   twitter: {
-    title: "Contact — Whizzly Lab",
+    card: "summary_large_image",
+    title: "Contact — Whizzly Lab | AI Engineering Studio",
     description: "Reach Whizzly Lab for AI & full-stack projects.",
-    images: [ogImage()],
+    images: [ogImage("/og-image.png")],
   },
 };
