@@ -39,6 +39,7 @@ interface Message {
   sources?: SourceCitation[];
   suggestedQuestions?: string[];
   actionCta?: ActionCta;
+  engine?: string;
   timestamp: string;
 }
 
@@ -115,6 +116,7 @@ export default function WhizzlyChatbot() {
         sources: data.sources || [],
         suggestedQuestions: data.suggestedQuestions || [],
         actionCta: data.actionCta,
+        engine: data.engine,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 
