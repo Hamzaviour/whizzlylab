@@ -1,0 +1,561 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Sparkles,
+  Send,
+  X,
+  Bot,
+  User,
+  RotateCcw,
+  Calendar,
+  ExternalLink,
+  ChevronDown,
+  MessageSquare,
+  Check,
+  Copy,
+  Zap,
+  ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
+import { useCurrency } from "@/lib/currency";
+
+interface SourceCitation {
+  title: string;
+  url?: string;
+}
+
+interface ActionCta {
+  text: string;
+  url: string;
+  label: string;
+}
+
+interface Message {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  sources?: SourceCitation[];
+  suggestedQuestions?: string[];
+  actionCta?: ActionCta;
+  timestamp: string;
+}
+
+const STARTER_PROMPTS = [
+  "⚡ What AI & RAG systems do you build?",
+  "💰 What is your project pricing (USD / PKR)?",
+  "🌐 How does your Kafka & Spark data pipeline work?",
+  "📅 How do I schedule a technical call with Hamza?",
+];
+
+export default function WhizzlyChatbot() {
+  const { currency } = useCurrency();
+  const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  // Auto-scroll to bottom of message list
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom();
+      setTimeout(() => inputRef.current?.focus(), 150);
+    }
+  }, [isOpen, messages, isLoading]);
+
+  // Handle user submitting message
+  const handleSend = async (textToSend?: string) => {
+    const query = (textToSend || input).trim();
+    if (!query || isLoading) return;
+
+    setHasInteracted(true);
+    setInput("");
+
+    const userMsg: Message = {
+      id: `user-${Date.now()}`,
+      role: "user",
+      content: query,
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    };
+
+    const newHistory = [...messages, userMsg];
+    setMessages(newHistory);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: query,
+          history: newHistory.map((m) => ({ role: m.role, content: m.content })),
+          currency,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Chat service unavailable");
+      }
+
+      const data = await response.json();
+
+      const assistantMsg: Message = {
+        id: `assistant-${Date.now()}`,
+        role: "assistant",
+        content: data.reply || "I encountered an issue processing your request. Please try again.",
+        sources: data.sources || [],
+        suggestedQuestions: data.suggestedQuestions || [],
+        actionCta: data.actionCta,
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      };
+
+      setMessages((prev) => [...prev, assistantMsg]);
+    } catch (err) {
+      const errorMsg: Message = {
+        id: `assistant-${Date.now()}`,
+        role: "assistant",
+        content:
+          "I apologize, but I'm currently unable to reach the neural gateway. You can schedule a call directly with Hamza at **/schedule** or WhatsApp at **+92 303 9969903**.",
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        actionCta: {
+          text: "Schedule directly with our Lead AI Engineer:",
+          url: "/schedule",
+          label: "📅 Book Discovery Call",
+        },
+      };
+      setMessages((prev) => [...prev, errorMsg]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  const handleCopy = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const handleClear = () => {
+    setMessages([]);
+    setHasInteracted(false);
+  };
+
+  // Helper to render markdown-like bold, lists, and links simply
+  const renderFormattedContent = (content: string) => {
+    const lines = content.split("\n");
+    return lines.map((line, idx) => {
+      // Heading 3 / 4
+      if (line.startsWith("### ")) {
+        return (
+          <h4 key={idx} className="font-bold text-white text-base mt-2 mb-1">
+            {line.replace("### ", "")}
+          </h4>
+        );
+      }
+      if (line.startsWith("#### ")) {
+        return (
+          <h5 key={idx} className="font-semibold text-purple-300 text-sm mt-2 mb-1">
+            {line.replace("#### ", "")}
+          </h5>
+        );
+      }
+      // Bullet list
+      if (line.startsWith("- ") || line.startsWith("* ")) {
+        const itemText = line.substring(2);
+        return (
+          <div key={idx} className="flex items-start gap-2 my-1 text-sm text-slate-200">
+            <span className="text-purple-400 mt-1">•</span>
+            <span>{parseInlineStyles(itemText)}</span>
+          </div>
+        );
+      }
+      // Empty line
+      if (!line.trim()) {
+        return <div key={idx} className="h-1.5" />;
+      }
+      // Normal paragraph
+      return (
+        <p key={idx} className="text-sm text-slate-200 leading-relaxed my-0.5">
+          {parseInlineStyles(line)}
+        </p>
+      );
+    });
+  };
+
+  // Parses **bold**, `code`, and [links](url)
+  const parseInlineStyles = (text: string) => {
+    const parts: React.ReactNode[] = [];
+    const regex = /(\*\*.*?\*\*|`.*?`|\[.*?\]\(.*?\))/g;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      const token = match[0];
+      if (token.startsWith("**") && token.endsWith("**")) {
+        parts.push(
+          <strong key={match.index} className="font-semibold text-white">
+            {token.slice(2, -2)}
+          </strong>
+        );
+      } else if (token.startsWith("`") && token.endsWith("`")) {
+        parts.push(
+          <code
+            key={match.index}
+            className="px-1.5 py-0.5 rounded bg-purple-950/60 border border-purple-500/30 text-cyan-300 font-mono text-xs"
+          >
+            {token.slice(1, -1)}
+          </code>
+        );
+      } else if (token.startsWith("[") && token.includes("](")) {
+        const linkMatch = token.match(/\[(.*?)\]\((.*?)\)/);
+        if (linkMatch) {
+          parts.push(
+            <a
+              key={match.index}
+              href={linkMatch[2]}
+              target={linkMatch[2].startsWith("http") ? "_blank" : undefined}
+              rel={linkMatch[2].startsWith("http") ? "noopener noreferrer" : undefined}
+              className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 font-medium transition-colors inline-flex items-center gap-0.5"
+            >
+              {linkMatch[1]}
+              {linkMatch[2].startsWith("http") && <ExternalLink className="w-3 h-3 inline" />}
+            </a>
+          );
+        }
+      }
+      lastIndex = regex.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    return parts.length > 0 ? parts : text;
+  };
+
+  return (
+    <>
+      {/* ── Floating Launcher Trigger ────────────────────────────────────────── */}
+      <div className="fixed bottom-20 right-4 md:bottom-8 md:right-8 z-50 flex items-center gap-3">
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: 20, scale: 0.85 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85 }}
+              className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0a0518]/90 border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.25)] backdrop-blur-md cursor-pointer hover:border-purple-400/60 transition-all"
+              onClick={() => setIsOpen(true)}
+            >
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+              </span>
+              <span className="text-xs font-semibold text-slate-200">
+                Ask Whizzly AI <span className="text-purple-400">⚡</span>
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <motion.button
+          onClick={() => setIsOpen(!isOpen)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`relative flex items-center justify-center w-14 h-14 rounded-2xl shadow-[0_0_25px_rgba(168,85,247,0.4)] transition-all duration-300 ${
+            isOpen
+              ? "bg-[#180b33] border border-purple-500/50 text-white"
+              : "bg-gradient-to-tr from-purple-600 via-indigo-600 to-cyan-500 text-white border border-white/20"
+          }`}
+          aria-label={isOpen ? "Close AI Assistant" : "Open AI Assistant"}
+        >
+          <AnimatePresence mode="wait">
+            {isOpen ? (
+              <motion.div
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <X className="w-6 h-6" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="chat"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="relative"
+              >
+                <Bot className="w-7 h-7" />
+                <Sparkles className="w-3.5 h-3.5 text-cyan-300 absolute -top-1 -right-1 animate-pulse" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
+
+      {/* ── Chat Modal / Drawer ──────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.95 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-3 bottom-24 md:inset-auto md:bottom-24 md:right-8 z-50 md:w-[440px] h-[580px] max-h-[82vh] flex flex-col rounded-3xl bg-[#090314]/95 border border-purple-500/30 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_30px_rgba(168,85,247,0.2)] backdrop-blur-2xl overflow-hidden font-sans"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-purple-500/20 bg-gradient-to-r from-purple-950/40 via-transparent to-cyan-950/20">
+              <div className="flex items-center gap-3">
+                <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 border border-purple-400/40 shadow-inner">
+                  <Bot className="w-5 h-5 text-white" />
+                  <span className="absolute -bottom-0.5 -right-0.5 flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-[#090314]"></span>
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-white text-sm tracking-tight">Whizzly AI</span>
+                    <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                      RAG Active
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-400">Senior AI Solutions Architect</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1">
+                {messages.length > 0 && (
+                  <button
+                    onClick={handleClear}
+                    title="Clear Conversation"
+                    className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-white/5 rounded-lg transition-colors"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                  </button>
+                )}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  title="Minimize"
+                  className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  <ChevronDown className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Conversation Body */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-purple-900/50">
+              {messages.length === 0 ? (
+                <div className="flex flex-col h-full justify-center space-y-4 py-2">
+                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-purple-500/20 text-center space-y-2">
+                    <div className="inline-flex p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                      <Sparkles className="w-5 h-5 text-cyan-400" />
+                    </div>
+                    <h4 className="text-white font-semibold text-sm">
+                      Welcome to Whizzly Lab AI Consultation
+                    </h4>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      I can answer architecture questions, estimate project pricing in USD/PKR, detail our Kafka/Spark pipelines, and schedule a discovery call.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 pt-2">
+                    <span className="text-[11px] font-semibold text-purple-300 tracking-wider uppercase px-1">
+                      Quick Questions:
+                    </span>
+                    <div className="flex flex-col gap-1.5">
+                      {STARTER_PROMPTS.map((prompt) => (
+                        <button
+                          key={prompt}
+                          onClick={() => handleSend(prompt)}
+                          className="w-full text-left px-3.5 py-2.5 rounded-xl bg-white/[0.02] hover:bg-purple-900/20 border border-white/[0.06] hover:border-purple-500/40 text-xs text-slate-200 font-medium transition-all duration-200 flex items-center justify-between group"
+                        >
+                          <span>{prompt}</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-cyan-400 transition-colors" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                messages.map((msg) => (
+                  <div
+                    key={msg.id}
+                    className={`flex flex-col ${msg.role === "user" ? "items-end" : "items-start"}`}
+                  >
+                    <div
+                      className={`max-w-[90%] rounded-2xl px-4 py-3 ${
+                        msg.role === "user"
+                          ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-br-none shadow-[0_4px_15px_rgba(147,51,234,0.3)]"
+                          : "bg-white/[0.04] border border-white/[0.09] text-slate-100 rounded-bl-none shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
+                      }`}
+                    >
+                      {msg.role === "assistant" ? (
+                        <div className="space-y-2">
+                          {renderFormattedContent(msg.content)}
+
+                          {/* Source Citations */}
+                          {msg.sources && msg.sources.length > 0 && (
+                            <div className="pt-2.5 mt-2.5 border-t border-white/[0.08] flex flex-wrap items-center gap-1.5">
+                              <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">
+                                Sources:
+                              </span>
+                              {msg.sources.map((src, i) => (
+                                <Link
+                                  key={i}
+                                  href={src.url || "#"}
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-purple-950/60 border border-purple-500/30 text-[11px] text-cyan-300 hover:text-cyan-200 hover:border-cyan-400/50 transition-colors"
+                                >
+                                  <span>{src.title}</span>
+                                  <ExternalLink className="w-2.5 h-2.5" />
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Action CTA Button */}
+                          {msg.actionCta && (
+                            <div className="pt-2 mt-2">
+                              <Link
+                                href={msg.actionCta.url}
+                                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white text-xs font-semibold shadow-md transition-all"
+                              >
+                                <span>{msg.actionCta.label}</span>
+                                <ArrowRight className="w-3 h-3" />
+                              </Link>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <p className="text-sm leading-relaxed">{msg.content}</p>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2 px-1 mt-1">
+                      <span className="text-[10px] text-slate-500">{msg.timestamp}</span>
+                      {msg.role === "assistant" && (
+                        <button
+                          onClick={() => handleCopy(msg.content, msg.id)}
+                          className="text-slate-500 hover:text-slate-300 transition-colors"
+                          title="Copy response"
+                        >
+                          {copiedId === msg.id ? (
+                            <Check className="w-3 h-3 text-emerald-400" />
+                          ) : (
+                            <Copy className="w-3 h-3" />
+                          )}
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Follow-up Question Chips */}
+                    {msg.suggestedQuestions && msg.suggestedQuestions.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-2.5 max-w-[95%]">
+                        {msg.suggestedQuestions.map((q, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => handleSend(q)}
+                            className="px-2.5 py-1 rounded-full bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/20 hover:border-purple-400 text-[11px] text-slate-300 hover:text-white transition-all text-left"
+                          >
+                            + {q}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
+
+              {/* Typing Indicator */}
+              {isLoading && (
+                <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] w-fit">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
+                  </div>
+                  <span className="text-xs text-slate-400">Analyzing knowledge base...</span>
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Bar */}
+            <div className="p-3 border-t border-purple-500/20 bg-[#06020e]/80">
+              <div className="flex items-end gap-2 bg-white/[0.04] border border-purple-500/30 focus-within:border-cyan-400/60 rounded-2xl p-1.5 transition-colors">
+                <textarea
+                  ref={inputRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Ask about AI, RAG, Kafka, pricing..."
+                  rows={1}
+                  className="flex-1 bg-transparent border-0 text-white placeholder-slate-400 text-xs md:text-sm px-3 py-1.5 focus:outline-none resize-none max-h-24 min-h-[36px] scrollbar-none"
+                />
+                <button
+                  onClick={() => handleSend()}
+                  disabled={!input.trim() || isLoading}
+                  className={`p-2 rounded-xl flex items-center justify-center transition-all ${
+                    input.trim() && !isLoading
+                      ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.5)] cursor-pointer"
+                      : "bg-white/5 text-slate-500 cursor-not-allowed"
+                  }`}
+                  aria-label="Send message"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Quick Actions Footer */}
+              <div className="flex items-center justify-between px-2 pt-2 text-[11px] text-slate-400">
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/schedule"
+                    className="hover:text-cyan-300 transition-colors flex items-center gap-1"
+                  >
+                    <Calendar className="w-3 h-3 text-purple-400" />
+                    <span>Book Call</span>
+                  </Link>
+                  <span>•</span>
+                  <a
+                    href="https://wa.me/923039969903"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-300 transition-colors flex items-center gap-1"
+                  >
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+                <span className="text-[10px] text-slate-400">Whizzly Lab Studio</span>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

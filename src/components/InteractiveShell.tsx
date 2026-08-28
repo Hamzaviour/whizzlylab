@@ -7,6 +7,7 @@ import SplashScreen, { SPLASH_DONE_EVENT } from "./SplashScreen";
 import StickyMobileCTA from "./StickyMobileCTA";
 import CookieConsent from "./CookieConsent";
 import Analytics from "./Analytics";
+import WhizzlyChatbot from "./chat/WhizzlyChatbot";
 
 /**
  * Site-wide: splash handoff, scroll progress, soft cursor glow (desktop).
@@ -79,6 +80,7 @@ export default function InteractiveShell({
         {children}
       </motion.div>
       <StickyMobileCTA />
+      <WhizzlyChatbot />
       <CookieConsent />
       <Analytics />
     </>
